@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Online Project - ইউজার অ্যাপ</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Firebase SDKs -->
+    <!-- Firebase SDKs (Correct Version) -->
     <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-database-compat.js"></script>
@@ -2360,7 +2360,7 @@
             color: #666;
         }
 
-        .rank-badge.bronze {
+        .rank-badge.leader {
             background: #cd7f32;
             color: white;
         }
@@ -2373,22 +2373,6 @@
         .rank-badge.gold {
             background: #ffd700;
             color: #333;
-        }
-
-        .rank-badge.platinum {
-            background: #e5e4e2;
-            color: #333;
-            border: 2px solid #ffd700;
-        }
-
-        .rank-badge.diamond {
-            background: linear-gradient(135deg, #b9f2ff, #a8e6ff);
-            color: #333;
-        }
-
-        .rank-badge.master {
-            background: linear-gradient(135deg, #ff6b6b, #ee5253);
-            color: white;
         }
 
         .rank-badge.legend {
@@ -2704,12 +2688,12 @@
                     <div class="referral-stat-label">মোট রেফার</div>
                 </div>
                 <div class="referral-stat-item">
-                    <div class="referral-stat-value" id="referralEarnings">0</div>
-                    <div class="referral-stat-label">আয় (টাকা)</div>
-                </div>
-                <div class="referral-stat-item">
                     <div class="referral-stat-value" id="referralRank">-</div>
                     <div class="referral-stat-label">বর্তমান র‍্যাঙ্ক</div>
+                </div>
+                <div class="referral-stat-item">
+                    <div class="referral-stat-value" id="nextRankBonus">২০</div>
+                    <div class="referral-stat-label">পরবর্তী বোনাস</div>
                 </div>
             </div>
         </div>
@@ -2826,7 +2810,7 @@
             <i class="fas fa-trophy"></i>
             <div class="price-title">সাপ্তাহিক টপ রেফারার</div>
             <div class="price-amount" id="topReferrerPageCount">০ জন</div>
-            <div class="price-note">* প্রতি রেফারে ৫ টাকা বোনাস</div>
+            <div class="price-note">* রেফারেল এ কোনো টাকা নেই, শুধু র‍্যাঙ্ক বোনাস</div>
         </div>
 
         <div id="topReferrersList" class="top-referrers-container">
@@ -2854,13 +2838,13 @@
         <div class="rank-progress-card">
             <div class="rank-progress-header">
                 <span class="rank-current" id="currentRankName">আয়রন</span>
-                <span class="rank-next" id="nextRankName">ব্রোঞ্জ</span>
+                <span class="rank-next" id="nextRankName">লিডার</span>
             </div>
             <div class="rank-progress-bar">
                 <div class="rank-progress-fill" id="rankProgressBar" style="width: 0%"></div>
             </div>
             <div class="rank-requirements" id="rankRequirements">
-                ০/১০ জন রেফার করুন ব্রোঞ্জ র‍্যাঙ্ক পেতে
+                ০/১০ জন রেফার করুন লিডার ব্যাজ পেতে (২০ টাকা বোনাস)
             </div>
         </div>
 
@@ -2888,8 +2872,8 @@
         <div id="adsRequirementCard" class="ads-requirement" onclick="checkAdsRequirement()">
             <i class="fas fa-lock"></i>
             <div class="requirement-text">
-                <div class="requirement-title" id="adsRequirementTitle">এডস দেখার জন্য ব্রোঞ্জ ব্যাজ প্রয়োজন</div>
-                <div class="requirement-subtitle" id="adsRequirementSubtitle">১০ জন রেফার করুন ব্রোঞ্জ র‍্যাঙ্ক পেতে</div>
+                <div class="requirement-title" id="adsRequirementTitle">এডস দেখার জন্য লিডার ব্যাজ প্রয়োজন</div>
+                <div class="requirement-subtitle" id="adsRequirementSubtitle">১০ জন রেফার করুন লিডার ব্যাজ পেতে</div>
             </div>
             <div class="requirement-status" id="adsRequirementStatus">🔒 বন্ধ</div>
         </div>
@@ -2939,7 +2923,7 @@
                 <span>যেভাবে কাজ করবেন</span>
             </div>
             <ul>
-                <li><i class="fas fa-check-circle"></i> ব্রোঞ্জ র‍্যাঙ্ক অর্জন করুন (১০ জন রেফার)</li>
+                <li><i class="fas fa-check-circle"></i> লিডার ব্যাজ অর্জন করুন (১০ জন রেফার)</li>
                 <li><i class="fas fa-check-circle"></i> উপরের এডস দেখুন বাটনে ক্লিক করুন</li>
                 <li><i class="fas fa-check-circle"></i> এডস দেখার পর "দেখা শেষ" বাটনে ক্লিক করুন</li>
                 <li><i class="fas fa-check-circle"></i> প্রতিদিন ২০০টি এডস দেখতে পারবেন</li>
@@ -3844,8 +3828,8 @@
         <div id="withdrawRequirementCard" class="withdraw-requirement" onclick="checkWithdrawRequirement()">
             <i class="fas fa-lock"></i>
             <div class="requirement-text">
-                <div class="requirement-title" id="withdrawRequirementTitle">উত্তলনের জন্য ব্রোঞ্জ ব্যাজ প্রয়োজন</div>
-                <div class="requirement-subtitle" id="withdrawRequirementSubtitle">১০ জন রেফার করুন ব্রোঞ্জ র‍্যাঙ্ক পেতে</div>
+                <div class="requirement-title" id="withdrawRequirementTitle">উত্তলনের জন্য লিডার ব্যাজ প্রয়োজন</div>
+                <div class="requirement-subtitle" id="withdrawRequirementSubtitle">১০ জন রেফার করুন লিডার ব্যাজ পেতে</div>
             </div>
             <div class="requirement-status" id="withdrawRequirementStatus">🔒 বন্ধ</div>
         </div>
@@ -4038,6 +4022,15 @@
                 <i class="fas fa-chevron-right profile-menu-arrow"></i>
             </div>
             
+            <div class="profile-menu-item-modern" onclick="showRankBadgePage()">
+                <i class="fas fa-medal" style="background: linear-gradient(135deg, #ffd700, #ffb347);"></i>
+                <div class="profile-menu-content">
+                    <div class="profile-menu-title">আমার র‍্যাঙ্ক</div>
+                    <div class="profile-menu-subtitle">র‍্যাঙ্ক ও বোনাস দেখুন</div>
+                </div>
+                <i class="fas fa-chevron-right profile-menu-arrow"></i>
+            </div>
+            
             <div class="profile-menu-item-modern" onclick="logout()">
                 <i class="fas fa-sign-out-alt" style="background: linear-gradient(135deg, #dc3545, #c82333);"></i>
                 <div class="profile-menu-content">
@@ -4173,17 +4166,18 @@
 </div>
 
 <script>
-    // Firebase Configuration
+    // Firebase Configuration - Correct initialization
     const firebaseConfig = {
         apiKey: "AIzaSyDUE-PK963IukO4fLbC-6Bur6GOylByJJ4",
         authDomain: "aa-video-4044c.firebaseapp.com",
         projectId: "aa-video-4044c",
         storageBucket: "aa-video-4044c.firebasestorage.app",
         messagingSenderId: "539530673361",
-        appId: "1:539530673361:web:21da87f56118b77ed799f0"
+        appId: "1:539530673361:web:21da87f56118b77ed799f0",
+        databaseURL: "https://aa-video-4044c-default-rtdb.firebaseio.com/" // Added databaseURL
     };
 
-    // Initialize Firebase
+    // Initialize Firebase with error handling
     let app, auth, database;
     
     try {
@@ -4191,8 +4185,12 @@
         auth = firebase.auth();
         database = firebase.database();
         console.log("Firebase initialized successfully");
+        
+        // Enable persistence for better offline support
+        firebase.database().goOnline();
     } catch (error) {
         console.error("Firebase initialization error:", error);
+        alert("Firebase initialization failed. Please check your internet connection.");
     }
 
     // গ্লোবাল ভেরিয়েবল
@@ -4218,16 +4216,14 @@
     const MAX_ADS = 200;
     const ADS_RATE = 0.20;
 
-    // র‍্যাঙ্ক ডেফিনেশন
+    // র‍্যাঙ্ক ডেফিনেশন - নতুন আপডেট (রেফারে কোনো টাকা নেই, শুধু ব্যাজ বোনাস)
     const RANKS = [
-        { name: 'আয়রন', minReferrals: 0, maxReferrals: 9, badge: 'iron', color: '#e0e0e0', reward: 0 },
-        { name: 'ব্রোঞ্জ', minReferrals: 10, maxReferrals: 24, badge: 'bronze', color: '#cd7f32', reward: 20 },
-        { name: 'সিলভার', minReferrals: 25, maxReferrals: 49, badge: 'silver', color: '#c0c0c0', reward: 50 },
-        { name: 'গোল্ড', minReferrals: 50, maxReferrals: 99, badge: 'gold', color: '#ffd700', reward: 100 },
-        { name: 'প্লাটিনাম', minReferrals: 100, maxReferrals: 199, badge: 'platinum', color: '#e5e4e2', reward: 200 },
-        { name: 'ডায়মন্ড', minReferrals: 200, maxReferrals: 499, badge: 'diamond', color: '#b9f2ff', reward: 500 },
-        { name: 'মাস্টার', minReferrals: 500, maxReferrals: 999, badge: 'master', color: '#ff6b6b', reward: 1000 },
-        { name: 'লিজেন্ড', minReferrals: 1000, maxReferrals: Infinity, badge: 'legend', color: '#667eea', reward: 2000 }
+        { name: 'আয়রন', minReferrals: 0, maxReferrals: 9, badge: 'iron', color: '#e0e0e0', bonus: 0, features: [] },
+        { name: 'লিডার', minReferrals: 10, maxReferrals: 24, badge: 'leader', color: '#cd7f32', bonus: 20, features: ['২০ টাকা বোনাস'] },
+        { name: 'সিলভার', minReferrals: 25, maxReferrals: 49, badge: 'silver', color: '#c0c0c0', bonus: 80, features: ['৮০ টাকা বোনাস', 'সোশাল মিডিয়া সেলারি (এডমিন যোগাযোগ)'] },
+        { name: 'গোল্ড', minReferrals: 50, maxReferrals: 99, badge: 'gold', color: '#ffd700', bonus: 120, features: ['১২০ টাকা বোনাস', 'সোশাল মিডিয়া সেলারি', 'ভিডিও সুবিধা (এডমিন যোগাযোগ)'] },
+        { name: 'লিজেন্ড', minReferrals: 100, maxReferrals: 199, badge: 'legend', color: '#667eea', bonus: 250, features: ['২৫০ টাকা বোনাস', 'সোশাল মিডিয়া সেলারি', 'ভার্চুয়াল VISA Card', 'উপহার (এডমিন যোগাযোগ)'] },
+        { name: 'গ্র্যান্ড লিজেন্ড', minReferrals: 200, maxReferrals: Infinity, badge: 'legend', color: '#667eea', bonus: 500, features: ['৫০০ টাকা বোনাস', 'সোশাল মিডিয়া সেলারি', 'ভার্চুয়াল VISA Card', 'স্পেশাল গিফট (এডমিন যোগাযোগ)'] }
     ];
 
     // এডমিন সেটিংস
@@ -4239,7 +4235,7 @@
         ads: { enabled: true, link: 'https://example.com/ads' },
         banner: '',
         bonus: 50,
-        notice: '📢 বিকাশ উত্তলন চালু আছে\n📢 ন্যূনতম উত্তলন ১০০ টাকা\n📢 এডস দেখে ইনকাম করুন',
+        notice: '📢 বিকাশ উত্তলন চালু আছে\n📢 ন্যূনতম উত্তলন ১০০ টাকা\n📢 এডস দেখে ইনকাম করুন\n📢 রেফারেল বোনাস আপডেট! রেফারে কোনো টাকা নেই, শুধু ব্যাজ বোনাস',
         bkashNumber: '01888888888',
         helpLinks: {
             facebook: { url: 'https://facebook.com/onlineproject', display: 'fb.me/onlineproject' },
@@ -4282,7 +4278,10 @@
             if (document.getElementById('loadingOverlay').classList.contains('active')) {
                 console.log("Loading timeout - forcing hide");
                 document.getElementById('loadingOverlay').classList.remove('active');
-                showSigninPage();
+                // Check if user is not logged in
+                if (!auth || !auth.currentUser) {
+                    showSigninPage();
+                }
             }
         }, 5000);
 
@@ -4298,694 +4297,409 @@
         
         // এডমিন সেটিংস লিসেনার
         loadAdminSettings();
+        
+        // Auth state listener setup
+        setupAuthListener();
     });
 
-    // এডমিন সেটিংস লোড করার জন্য লিসেনার
-    function loadAdminSettings() {
-        const settingsRef = database.ref('settings');
-        settingsRef.on('value', (snapshot) => {
-            if (snapshot.exists()) {
-                const newSettings = snapshot.val();
+    // Auth state listener setup function
+    function setupAuthListener() {
+        if (auth) {
+            auth.onAuthStateChanged(async (user) => {
+                console.log("Auth state changed:", user ? "Logged in" : "Not logged in");
                 
-                // enabled প্রপার্টি চেক
-                const types = ['gmail', 'facebook', 'telegram', 'whatsapp'];
-                types.forEach(type => {
-                    if (newSettings[type] && newSettings[type].enabled === undefined) {
-                        newSettings[type].enabled = true;
+                if (user) {
+                    try {
+                        console.log("User logged in:", user.email);
+                        
+                        const userRef = database.ref('users/' + user.uid);
+                        const snapshot = await userRef.once('value');
+                        
+                        if (snapshot.exists()) {
+                            currentUser = snapshot.val();
+                            currentUser.uid = user.uid;
+                            
+                            if (currentUser.banned) {
+                                await auth.signOut();
+                                showToast('আপনার একাউন্ট ব্যান করা হয়েছে!', 'error');
+                                showSigninPage();
+                                hideLoading();
+                                return;
+                            }
+                            
+                            // ডিফল্ট ভ্যালু সেট
+                            if (currentUser.voucherBalance === undefined) currentUser.voucherBalance = 0;
+                            if (currentUser.microjobEarn === undefined) currentUser.microjobEarn = 0;
+                            if (currentUser.jobpostEarn === undefined) currentUser.jobpostEarn = 0;
+                            if (currentUser.adsEarn === undefined) currentUser.adsEarn = 0;
+                            if (currentUser.gmailCount === undefined) currentUser.gmailCount = 0;
+                            if (currentUser.facebookCount === undefined) currentUser.facebookCount = 0;
+                            if (currentUser.telegramCount === undefined) currentUser.telegramCount = 0;
+                            if (currentUser.whatsappCount === undefined) currentUser.whatsappCount = 0;
+                            if (currentUser.referrals === undefined) currentUser.referrals = 0;
+                            if (currentUser.referralEarnings === undefined) currentUser.referralEarnings = 0;
+                            if (currentUser.referredBy === undefined) currentUser.referredBy = null;
+                            if (currentUser.claimedBonuses === undefined) currentUser.claimedBonuses = [];
+                            
+                            // রেফারেল কোড জেনারেট করুন যদি না থাকে
+                            if (!currentUser.referralCode) {
+                                currentUser.referralCode = generateReferralCode(currentUser.uid);
+                                await database.ref('users/' + currentUser.uid).update({
+                                    referralCode: currentUser.referralCode
+                                });
+                            }
+                            
+                            // সেল হিস্টোরি লোড
+                            const sellHistoryRef = database.ref('sellHistory/' + user.uid);
+                            const sellSnapshot = await sellHistoryRef.once('value');
+                            if (sellSnapshot.exists()) {
+                                sellHistory = sellSnapshot.val() || [];
+                            } else {
+                                sellHistory = [];
+                            }
+                            
+                            // উত্তলন হিস্টোরি লোড
+                            const withdrawHistoryRef = database.ref('withdrawals')
+                                .orderByChild('userId')
+                                .equalTo(user.uid);
+                            const withdrawSnapshot = await withdrawHistoryRef.once('value');
+                            withdrawHistory = [];
+                            withdrawSnapshot.forEach((childSnapshot) => {
+                                withdrawHistory.push({
+                                    id: childSnapshot.key,
+                                    ...childSnapshot.val()
+                                });
+                            });
+                            
+                            // সব ইউজার লোড করুন
+                            await loadAllUsers();
+                            
+                            // র‍্যাঙ্ক আপডেট চেক
+                            await checkRankUpgrade();
+                            
+                            hideLoading();
+                            hideAllPages();
+                            document.getElementById('home-page').classList.add('active');
+                            document.getElementById('bottomNav').style.display = 'flex';
+                            
+                            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+                            document.querySelector('.nav-item[onclick="switchPage(\'home\')"]').classList.add('active');
+                            
+                            updateUI();
+                            updateVisaCard();
+                            updateVoucherBalance();
+                            showWelcomeNotice();
+                            updateAllPrices();
+                            updateAllProgressBars();
+                            updateProjectStatus();
+                            updateBloodPost();
+                            updateReferralUI();
+                            updateMicroJobsCount();
+                            updateJobPostsCount();
+                            
+                            await loadMyBloodRequests();
+                            
+                        } else {
+                            console.log("User data not found, creating new user data");
+                            // নতুন ইউজারের জন্য ডাটা তৈরি
+                            const referralCode = localStorage.getItem('signupReferral') || null;
+                            let referredBy = null;
+                            
+                            // রেফারেল কোড চেক করুন - শুধু ট্র্যাক করা হবে, টাকা যোগ হবে না
+                            if (referralCode) {
+                                const usersSnapshot = await database.ref('users').once('value');
+                                if (usersSnapshot.exists()) {
+                                    usersSnapshot.forEach(child => {
+                                        if (child.val().referralCode === referralCode) {
+                                            referredBy = child.key;
+                                        }
+                                    });
+                                }
+                                localStorage.removeItem('signupReferral');
+                            }
+                            
+                            const newUserData = {
+                                name: user.displayName || user.email.split('@')[0],
+                                email: user.email,
+                                uid: user.uid,
+                                gmailEarn: 0,
+                                facebookEarn: 0,
+                                telegramEarn: 0,
+                                whatsappEarn: 0,
+                                microjobEarn: 0,
+                                jobpostEarn: 0,
+                                adsEarn: 0,
+                                dailyBonus: 0,
+                                voucherBalance: 0,
+                                manualAdded: 0,
+                                manualRemoved: 0,
+                                gmailCount: 0,
+                                facebookCount: 0,
+                                telegramCount: 0,
+                                whatsappCount: 0,
+                                totalWithdrawn: 0,
+                                referrals: 0,
+                                referralEarnings: 0, // রাখা হল কিন্তু ব্যবহার করা হবে না
+                                referredBy: referredBy,
+                                referralCode: generateReferralCode(user.uid),
+                                completedTasks: {
+                                    gmail: false,
+                                    facebook: false,
+                                    telegram: false,
+                                    whatsapp: false
+                                },
+                                claimedBonuses: [], // কোন কোন র‍্যাঙ্কের বোনাস নেওয়া হয়েছে
+                                createdAt: Date.now(),
+                                banned: false
+                            };
+                            
+                            await database.ref('users/' + user.uid).set(newUserData);
+                            
+                            // রেফারার আপডেট করুন (শুধু কাউন্ট বাড়বে, টাকা যোগ হবে না)
+                            if (referredBy) {
+                                const referrerRef = database.ref('users/' + referredBy);
+                                const referrerSnapshot = await referrerRef.once('value');
+                                if (referrerSnapshot.exists()) {
+                                    const referrer = referrerSnapshot.val();
+                                    await referrerRef.update({
+                                        referrals: (referrer.referrals || 0) + 1
+                                        // টাকা যোগ করা হচ্ছে না!
+                                    });
+                                }
+                            }
+                            
+                            currentUser = newUserData;
+                            
+                            await loadAllUsers();
+                            
+                            hideLoading();
+                            hideAllPages();
+                            document.getElementById('home-page').classList.add('active');
+                            document.getElementById('bottomNav').style.display = 'flex';
+                            
+                            updateUI();
+                            updateVisaCard();
+                            updateVoucherBalance();
+                            showWelcomeNotice();
+                            updateAllPrices();
+                        }
+                    } catch (error) {
+                        console.error("Error loading user data:", error);
+                        showToast('ডাটা লোড করতে সমস্যা হয়েছে: ' + error.message, 'error');
+                        hideLoading();
+                        showSigninPage();
                     }
-                });
-                
-                if (!newSettings.ads) {
-                    newSettings.ads = { enabled: true, link: 'https://example.com/ads' };
-                }
-                
-                // পুরনো সেটিংসের সাথে তুলনা করে পরিবর্তন হলে নোটিফিকেশন দেখান
-                if (JSON.stringify(adminSettings) !== JSON.stringify(newSettings)) {
-                    adminSettings = newSettings;
-                    console.log("Settings updated:", adminSettings);
-                    
-                    // ব্যানার আপডেট
-                    updateBanner();
-                    
-                    // হেল্প লিংক আপডেট
-                    updateHelpLinks();
-                    
-                    // প্রোজেক্ট স্ট্যাটাস আপডেট
-                    updateProjectStatus();
-                    
-                    // প্রাইস আপডেট
-                    updateAllPrices();
-                    
-                    // নোটিফিকেশন দেখান
-                    showUpdateNotification();
-                }
-            }
-        }, (error) => {
-            console.error("Settings listener error:", error);
-        });
-    }
-
-    // সব প্রাইস আপডেট করুন
-    function updateAllPrices() {
-        // হোম পেজের প্রাইস
-        const gmailPrice = document.getElementById('gmailPrice');
-        const fbPrice = document.getElementById('facebookPrice');
-        const tgPrice = document.getElementById('telegramPrice');
-        const waPrice = document.getElementById('whatsappPrice');
-        
-        if (gmailPrice) gmailPrice.innerText = `৳ ${adminSettings.gmail?.price || 10}`;
-        if (fbPrice) fbPrice.innerText = `৳ ${adminSettings.facebook?.price || 10}`;
-        if (tgPrice) tgPrice.innerText = `৳ ${adminSettings.telegram?.price || 15}`;
-        if (waPrice) waPrice.innerText = `৳ ${adminSettings.whatsapp?.price || 15}`;
-        
-        // সেল পেজের প্রাইস ভ্যালু
-        const gmailVal = document.getElementById('gmailPriceValue');
-        const fbVal = document.getElementById('facebookPriceValue');
-        const tgVal = document.getElementById('telegramPriceValue');
-        const waVal = document.getElementById('whatsappPriceValue');
-        
-        if (gmailVal) gmailVal.innerText = adminSettings.gmail?.price || 10;
-        if (fbVal) fbVal.innerText = adminSettings.facebook?.price || 10;
-        if (tgVal) tgVal.innerText = adminSettings.telegram?.price || 15;
-        if (waVal) waVal.innerText = adminSettings.whatsapp?.price || 15;
-        
-        // ওয়ালেট পেজের প্রাইস
-        const gmailP2 = document.getElementById('gmailPrice2');
-        const fbP2 = document.getElementById('facebookPrice2');
-        const tgP2 = document.getElementById('telegramPrice2');
-        const waP2 = document.getElementById('whatsappPrice2');
-        
-        if (gmailP2) gmailP2.innerText = adminSettings.gmail?.price || 10;
-        if (fbP2) fbP2.innerText = adminSettings.facebook?.price || 10;
-        if (tgP2) tgP2.innerText = adminSettings.telegram?.price || 15;
-        if (waP2) waP2.innerText = adminSettings.whatsapp?.price || 15;
-        
-        // ডেইলি বোনাস পেজের প্রাইস
-        const task1 = document.getElementById('task1Price');
-        const task2 = document.getElementById('task2Price');
-        const task3 = document.getElementById('task3Price');
-        const task4 = document.getElementById('task4Price');
-        
-        if (task1) task1.innerText = adminSettings.gmail?.price || 10;
-        if (task2) task2.innerText = adminSettings.facebook?.price || 10;
-        if (task3) task3.innerText = adminSettings.telegram?.price || 15;
-        if (task4) task4.innerText = adminSettings.whatsapp?.price || 15;
-        
-        // বোনাস
-        const bonusDisplay = document.getElementById('bonusAmountDisplay');
-        const claimBonus = document.getElementById('claimBonusAmount');
-        
-        if (bonusDisplay) bonusDisplay.innerText = adminSettings.bonus || 50;
-        if (claimBonus) claimBonus.innerText = adminSettings.bonus || 50;
-        
-        // এডমিন বিকাশ নম্বর
-        const adminBkash = document.getElementById('adminBkashNumber');
-        if (adminBkash && adminSettings.bkashNumber) {
-            adminBkash.innerText = adminSettings.bkashNumber;
-        }
-        
-        // এডমিন তথ্য আপডেট
-        const updateTime = new Date().toLocaleTimeString('bn-BD');
-        
-        const gmailEmail = document.getElementById('gmailAdminEmail');
-        const gmailPass = document.getElementById('gmailAdminPassword');
-        const gmailTime = document.getElementById('gmailUpdateTime');
-        
-        if (gmailEmail) gmailEmail.innerText = adminSettings.gmail?.email || 'gmail.sell@onlineproject.com';
-        if (gmailPass) gmailPass.innerText = adminSettings.gmail?.password || 'Gmail@2024';
-        if (gmailTime) gmailTime.innerText = `সর্বশেষ আপডেট: ${updateTime}`;
-        
-        const fbEmail = document.getElementById('facebookAdminEmail');
-        const fbPass = document.getElementById('facebookAdminPassword');
-        const fbTime = document.getElementById('facebookUpdateTime');
-        
-        if (fbEmail) fbEmail.innerText = adminSettings.facebook?.email || 'fb.sell@onlineproject.com';
-        if (fbPass) fbPass.innerText = adminSettings.facebook?.password || 'Facebook@2024';
-        if (fbTime) fbTime.innerText = `সর্বশেষ আপডেট: ${updateTime}`;
-        
-        const tgPhone = document.getElementById('telegramAdminPhone');
-        const tgPass = document.getElementById('telegramAdminPassword');
-        const tgTime = document.getElementById('telegramUpdateTime');
-        
-        if (tgPhone) tgPhone.innerText = adminSettings.telegram?.phone || '+8801700000000';
-        if (tgPass) tgPass.innerText = adminSettings.telegram?.password || 'Telegram@2024';
-        if (tgTime) tgTime.innerText = `সর্বশেষ আপডেট: ${updateTime}`;
-        
-        const waPhone = document.getElementById('whatsappAdminPhone');
-        const waPass = document.getElementById('whatsappAdminPassword');
-        const waTime = document.getElementById('whatsappUpdateTime');
-        
-        if (waPhone) waPhone.innerText = adminSettings.whatsapp?.phone || '+8801700000000';
-        if (waPass) waPass.innerText = adminSettings.whatsapp?.password || 'WhatsApp@2024';
-        if (waTime) waTime.innerText = `সর্বশেষ আপডেট: ${updateTime}`;
-    }
-
-    // প্রোজেক্ট স্ট্যাটাস আপডেট
-    function updateProjectStatus() {
-        const types = ['gmail', 'facebook', 'telegram', 'whatsapp'];
-        
-        types.forEach(type => {
-            // হোম পেজের কার্ড আপডেট
-            const card = document.getElementById(type + '-card');
-            if (card) {
-                const enabled = adminSettings[type]?.enabled !== false;
-                if (!enabled) {
-                    card.classList.add('project-disabled');
                 } else {
-                    card.classList.remove('project-disabled');
+                    console.log("User not logged in");
+                    currentUser = null;
+                    hideLoading();
+                    showSigninPage();
                 }
-            }
-            
-            // সেল পেজের ডিসএবল মেসেজ
-            const disabledMsg = document.getElementById(type + '-disabled-message');
-            const submitBtn = document.getElementById(type + 'SubmitBtn');
-            const inputs = document.querySelectorAll(`#${type}-sell-page input`);
-            
-            if (disabledMsg && submitBtn) {
-                const enabled = adminSettings[type]?.enabled !== false;
-                if (!enabled) {
-                    disabledMsg.style.display = 'flex';
-                    submitBtn.disabled = true;
-                    inputs.forEach(input => input.disabled = true);
-                } else {
-                    disabledMsg.style.display = 'none';
-                    submitBtn.disabled = false;
-                    inputs.forEach(input => input.disabled = false);
-                }
-            }
-            
-            // ডেইলি বোনাস পেজের বাটন আপডেট
-            const taskBtn = document.getElementById('task' + (types.indexOf(type) + 1) + 'Btn');
-            if (taskBtn) {
-                const enabled = adminSettings[type]?.enabled !== false;
-                if (!enabled) {
-                    taskBtn.disabled = true;
-                    taskBtn.style.opacity = '0.5';
-                    taskBtn.title = 'এই প্রোজেক্টটি বন্ধ আছে';
-                } else {
-                    taskBtn.disabled = false;
-                    taskBtn.style.opacity = '1';
-                    taskBtn.title = '';
-                }
-            }
-            
-            // প্রোগ্রেস বার আপডেট
-            if (currentUser) {
-                updateProgressBar(type);
-            }
-        });
-        
-        // এডস স্ট্যাটাস আপডেট
-        const adsEnabled = adminSettings.ads?.enabled !== false;
-        const adsCard = document.querySelector('.feature-card[onclick="showAdsPage()"]');
-        if (adsCard) {
-            if (!adsEnabled) {
-                adsCard.classList.add('project-disabled');
-            } else {
-                adsCard.classList.remove('project-disabled');
-            }
-        }
-    }
-
-    // এডস টাইমার শুরু
-    function startAdsTimer() {
-        if (adsTimer) clearInterval(adsTimer);
-        adsTimer = setInterval(checkAdsReset, 60000); // প্রতি মিনিটে চেক
-    }
-
-    // এডস রিসেট চেক
-    function checkAdsReset() {
-        const lastReset = localStorage.getItem('adsLastReset');
-        const today = new Date().toDateString();
-        
-        if (lastReset !== today) {
-            // নতুন দিন শুরু - রিসেট
-            todayAdsWatched = 0;
-            todayAdsEarned = 0;
-            hasWatchedAd = false;
-            localStorage.setItem('adsLastReset', today);
-            localStorage.setItem('todayAdsWatched', '0');
-            localStorage.setItem('todayAdsEarned', '0');
+            });
         } else {
-            // লোড করা মান
-            todayAdsWatched = parseInt(localStorage.getItem('todayAdsWatched') || '0');
-            todayAdsEarned = parseFloat(localStorage.getItem('todayAdsEarned') || '0');
+            console.error("Auth not initialized");
+            hideLoading();
+            showSigninPage();
         }
-        
-        updateAdsUI();
     }
 
-    // এডস UI আপডেট
-    function updateAdsUI() {
-        const todayAdsWatchedEl = document.getElementById('todayAdsWatched');
-        const todayAdsEarnedEl = document.getElementById('todayAdsEarned');
-        const adsProgressCountEl = document.getElementById('adsProgressCount');
-        const totalAdsEarnedTodayEl = document.getElementById('totalAdsEarnedToday');
-        const adsProgressBarEl = document.getElementById('adsProgressBar');
-        const adsEarningTodayEl = document.getElementById('adsEarningToday');
-        
-        if (todayAdsWatchedEl) todayAdsWatchedEl.innerText = todayAdsWatched;
-        if (todayAdsEarnedEl) todayAdsEarnedEl.innerText = todayAdsEarned.toFixed(2);
-        if (adsProgressCountEl) adsProgressCountEl.innerText = `${todayAdsWatched}/${MAX_ADS}`;
-        if (totalAdsEarnedTodayEl) totalAdsEarnedTodayEl.innerText = todayAdsEarned.toFixed(2);
-        
-        const progressPercent = (todayAdsWatched / MAX_ADS) * 100;
-        if (adsProgressBarEl) adsProgressBarEl.style.width = progressPercent + '%';
-        
-        if (adsEarningTodayEl) adsEarningTodayEl.innerText = `আজ: ${todayAdsEarned.toFixed(2)} টাকা`;
-    }
-
-    // এডস প্রয়োজনীয়তা UI আপডেট
-    function updateAdsRequirementUI() {
+    // র‍্যাঙ্ক আপগ্রেড চেক করুন
+    async function checkRankUpgrade() {
         if (!currentUser) return;
         
         const referrals = currentUser.referrals || 0;
-        const requirementCard = document.getElementById('adsRequirementCard');
-        const requirementTitle = document.getElementById('adsRequirementTitle');
-        const requirementSubtitle = document.getElementById('adsRequirementSubtitle');
-        const requirementStatus = document.getElementById('adsRequirementStatus');
+        const currentRank = getCurrentRank(referrals);
+        const claimedBonuses = currentUser.claimedBonuses || [];
         
-        if (!requirementCard || !requirementTitle || !requirementSubtitle || !requirementStatus) return;
-        
-        if (referrals >= 10) {
-            // ব্রোঞ্জ বা তার উপরে - আনলকড
-            requirementCard.className = 'ads-requirement unlocked';
-            requirementTitle.innerHTML = '✅ এডস দেখার জন্য ব্রোঞ্জ ব্যাজ অর্জিত!';
-            requirementSubtitle.innerHTML = `আপনি এখন এডস দেখে ইনকাম করতে পারবেন`;
-            requirementStatus.innerHTML = '🔓 খোলা';
-            requirementStatus.style.color = '#28a745';
-        } else {
-            // লকড
-            requirementCard.className = 'ads-requirement';
-            const remaining = 10 - referrals;
-            requirementTitle.innerHTML = '🔒 এডস দেখার জন্য ব্রোঞ্জ ব্যাজ প্রয়োজন';
-            requirementSubtitle.innerHTML = `আরও ${remaining} জন রেফার করুন ব্রোঞ্জ র‍্যাঙ্ক পেতে (বর্তমান: ${referrals}/১০)`;
-            requirementStatus.innerHTML = '🔒 বন্ধ';
-            requirementStatus.style.color = '#ff9800';
-        }
-    }
-
-    // এডস প্রয়োজনীয়তা চেক (কার্ড ক্লিক করলে)
-    function checkAdsRequirement() {
-        if (!currentUser) {
-            showToast('আপনাকে লগইন করতে হবে', 'error');
-            return;
-        }
-        
-        const referrals = currentUser.referrals || 0;
-        if (referrals < 10) {
-            const remaining = 10 - referrals;
-            showToast(`🔒 এডস দেখার জন্য ব্রোঞ্জ র‍্যাঙ্ক প্রয়োজন! আরও ${remaining} জন রেফার করুন`, 'info');
-        } else {
-            showToast('✅ আপনি এডস দেখার জন্য যোগ্য!', 'success');
-        }
-    }
-
-    // এডস দেখুন বাটন - ব্রোঞ্জ র‍্যাঙ্ক চেক সহ
-    function watchAd() {
-        if (!currentUser) {
-            showToast('আপনাকে লগইন করতে হবে', 'error');
-            return;
-        }
-        
-        // এডস ফিচার চালু আছে কিনা চেক
-        if (!adminSettings.ads?.enabled) {
-            showToast('এডস ফিচারটি বন্ধ আছে', 'error');
-            return;
-        }
-        
-        const referrals = currentUser.referrals || 0;
-        
-        // ব্রোঞ্জ র‍্যাঙ্ক চেক (১০ রেফার)
-        if (referrals < 10) {
-            const remaining = 10 - referrals;
-            showToast(`🔒 এডস দেখার জন্য ব্রোঞ্জ র‍্যাঙ্ক প্রয়োজন! আরও ${remaining} জন রেফার করুন`, 'error');
+        // চেক করুন নতুন র‍্যাঙ্কের বোনাস নেওয়া বাকি আছে কিনা
+        if (!claimedBonuses.includes(currentRank.name) && currentRank.bonus > 0) {
+            // বোনাস যোগ করুন
+            const newBalance = (currentUser.manualAdded || 0) + currentRank.bonus;
+            const newClaimedBonuses = [...claimedBonuses, currentRank.name];
             
-            // র‍্যাঙ্ক ব্যাজ পেজে নিয়ে যাওয়ার অপশন
-            setTimeout(() => {
-                if (confirm('র‍্যাঙ্ক ব্যাজ পেজে যেতে চান?')) {
-                    showRankBadgePage();
-                }
-            }, 1000);
-            
-            return;
-        }
-        
-        if (todayAdsWatched >= MAX_ADS) {
-            showToast('আজকের এডস লিমিট শেষ! আগামীকাল আবার চেষ্টা করুন।', 'error');
-            return;
-        }
-        
-        hasWatchedAd = true;
-        
-        // এডস ভিউয়ার আপডেট
-        const adsViewer = document.getElementById('adsViewer');
-        if (adsViewer) {
-            // প্লেসহোল্ডার সরান
-            adsViewer.innerHTML = '<div class="ads-placeholder"><i class="fas fa-spinner fa-spin" style="font-size: 30px; color: #667eea;"></i><br>এডস লোড হচ্ছে...</div>';
-            
-            // SDK এডস দেখানোর চেষ্টা করুন
-            if (typeof window.show_10563791 === 'function') {
-                try {
-                    window.show_10563791();
-                    showToast('এডস দেখা শুরু হয়েছে। দেখার পর "দেখা শেষ" বাটনে ক্লিক করুন।', 'info');
-                } catch (e) {
-                    console.error("SDK error:", e);
-                    // SDK ব্যর্থ হলে ফ্যালব্যাক
-                    adsViewer.innerHTML = '<div class="ads-placeholder"><i class="fas fa-external-link-alt" style="font-size: 30px; color: #667eea;"></i><br>এডস নতুন ট্যাবে খোলা হয়েছে...</div>';
-                    window.open(adminSettings.ads?.link || 'https://example.com/ads', '_blank');
-                }
-            } else {
-                // SDK লোড না হলে ফ্যালব্যাক
-                adsViewer.innerHTML = '<div class="ads-placeholder"><i class="fas fa-external-link-alt" style="font-size: 30px; color: #667eea;"></i><br>এডস নতুন ট্যাবে খোলা হয়েছে...</div>';
-                window.open(adminSettings.ads?.link || 'https://example.com/ads', '_blank');
-                showToast('এডস নতুন ট্যাবে খোলা হয়েছে। দেখার পর "দেখা শেষ" বাটনে ক্লিক করুন।', 'info');
-            }
-        }
-    }
-
-    // এডস দেখা শেষ
-    async function markAdAsWatched() {
-        if (!currentUser) {
-            showToast('আপনাকে লগইন করতে হবে', 'error');
-            return;
-        }
-        
-        // এডস ফিচার চালু আছে কিনা চেক
-        if (!adminSettings.ads?.enabled) {
-            showToast('এডস ফিচারটি বন্ধ আছে', 'error');
-            return;
-        }
-        
-        const referrals = currentUser.referrals || 0;
-        
-        // ব্রোঞ্জ র‍্যাঙ্ক চেক (১০ রেফার)
-        if (referrals < 10) {
-            const remaining = 10 - referrals;
-            showToast(`🔒 এডস দেখার জন্য ব্রোঞ্জ র‍্যাঙ্ক প্রয়োজন! আরও ${remaining} জন রেফার করুন`, 'error');
-            return;
-        }
-        
-        if (todayAdsWatched >= MAX_ADS) {
-            showToast('আজকের এডস লিমিট শেষ!', 'error');
-            return;
-        }
-        
-        if (!hasWatchedAd) {
-            showToast('প্রথমে "এডস দেখুন" বাটনে ক্লিক করুন!', 'error');
-            return;
-        }
-        
-        showLoading();
-        
-        try {
-            todayAdsWatched++;
-            const earning = ADS_RATE;
-            todayAdsEarned += earning;
-            
-            localStorage.setItem('todayAdsWatched', todayAdsWatched.toString());
-            localStorage.setItem('todayAdsEarned', todayAdsEarned.toString());
-            
-            const adsData = {
-                userId: currentUser.uid,
-                userName: currentUser.name,
-                watchedAt: Date.now(),
-                earning: earning,
-                date: new Date().toDateString()
-            };
-            
-            await database.ref('adsHistory/' + currentUser.uid).push(adsData);
-            
-            const newAdsEarn = (currentUser.adsEarn || 0) + earning;
             await database.ref('users/' + currentUser.uid).update({
-                adsEarn: newAdsEarn
+                manualAdded: newBalance,
+                claimedBonuses: newClaimedBonuses
             });
             
-            currentUser.adsEarn = newAdsEarn;
-            hasWatchedAd = false;
+            currentUser.manualAdded = newBalance;
+            currentUser.claimedBonuses = newClaimedBonuses;
             
-            // এডস ভিউয়ার রিসেট
-            const adsViewer = document.getElementById('adsViewer');
-            if (adsViewer) {
-                adsViewer.innerHTML = '<div class="ads-placeholder"><i class="fas fa-play-circle" style="font-size: 30px; color: #667eea; margin-bottom: 10px; display: block;"></i>এডস দেখতে "এডস দেখুন" বাটনে ক্লিক করুন</div>';
+            showToast(`🎉 অভিনন্দন! আপনি ${currentRank.name} ব্যাজ অর্জন করেছেন এবং ${currentRank.bonus} টাকা বোনাস পেয়েছেন!`, 'success');
+            
+            // ফিচার আনলক সংক্রান্ত মেসেজ
+            if (currentRank.features && currentRank.features.length > 0) {
+                let featureMsg = 'আপনি পাচ্ছেন: ' + currentRank.features.join(', ');
+                setTimeout(() => {
+                    showToast(featureMsg, 'info');
+                }, 2000);
             }
             
-            updateAdsUI();
             updateUI();
-            
-            showToast(`✅ ${earning.toFixed(2)} টাকা ব্যালেন্সে যোগ হয়েছে! (মোট ${todayAdsEarned.toFixed(2)} টাকা)`, 'success');
-            
-        } catch (error) {
-            console.error('Ads earning error:', error);
-            showToast('সমস্যা হয়েছে', 'error');
-        } finally {
-            hideLoading();
+            updateVisaCard();
+            animateBalanceChange();
         }
     }
 
-    // আপডেট নোটিফিকেশন দেখান
-    function showUpdateNotification() {
-        const notification = document.getElementById('updateNotification');
-        if (notification) {
-            notification.style.display = 'flex';
-            setTimeout(() => {
-                notification.style.display = 'none';
-            }, 3000);
-        }
-    }
-
-    // মাইক্রোজব ডাটা লোড করার জন্য লিসেনার
-    function loadMicroJobsData() {
-        const microJobsRef = database.ref('microjobs');
-        microJobsRef.on('value', (snapshot) => {
-            microJobs = [];
-            if (snapshot.exists()) {
-                snapshot.forEach(child => {
-                    microJobs.push({
-                        id: child.key,
-                        ...child.val()
-                    });
-                });
-            }
-            console.log("Microjobs loaded:", microJobs.length);
-            
-            if (currentUser) {
-                updateMicroJobsCount();
-                if (document.getElementById('microjob-page')?.classList.contains('active')) {
-                    displayMicroJobs();
-                }
-                if (document.getElementById('job-detail-page')?.classList.contains('active') && currentJobId) {
-                    const job = microJobs.find(j => j.id === currentJobId);
-                    if (job) {
-                        document.getElementById('jobDetailTitle').innerText = job.title;
-                        document.getElementById('jobDetailPrice').innerText = job.price;
-                        document.getElementById('jobDetailDescription').innerText = job.description;
-                    }
-                }
-            }
-        }, (error) => {
-            console.error("Error loading microjobs:", error);
-        });
-    }
-
-    // মাইক্রোজব কাউন্ট আপডেট
-    function updateMicroJobsCount() {
-        const availableJobs = microJobs.filter(job => job.status === 'active' && job.remaining > 0);
-        const countElement = document.getElementById('microjobCount');
-        if (countElement) {
-            countElement.innerText = `${availableJobs.length}টি`;
-        }
-    }
-
-    // মাইক্রোজব ডিসপ্লে
-    function displayMicroJobs() {
-        const container = document.getElementById('microjobs-list');
-        const noJobsMsg = document.getElementById('noMicroJobs');
+    // সাইন ইন হ্যান্ডলার
+    async function handleSignIn() {
+        const name = document.getElementById('signin-name').value.trim();
+        const email = document.getElementById('signin-email').value.trim();
+        const password = document.getElementById('signin-password').value;
+        const referralCode = document.getElementById('signin-referral').value.trim();
         
-        if (!container) return;
-        
-        const availableJobs = microJobs.filter(job => job.status === 'active' && job.remaining > 0);
-        
-        if (availableJobs.length === 0) {
-            if (noJobsMsg) noJobsMsg.style.display = 'block';
-            container.innerHTML = '';
-            return;
-        }
-        
-        if (noJobsMsg) noJobsMsg.style.display = 'none';
-        
-        let html = '';
-        availableJobs.forEach(job => {
-            const alreadyApplied = myJobSubmissions.some(sub => sub.jobId === job.id && sub.status !== 'rejected');
-            
-            html += `
-                <div class="microjob-card" onclick="showJobDetails('${job.id}')">
-                    <div class="microjob-header">
-                        <span class="microjob-title">${job.title}</span>
-                        <span class="microjob-price">৳ ${job.price}</span>
-                    </div>
-                    <div class="microjob-description">
-                        ${job.description.substring(0, 100)}${job.description.length > 100 ? '...' : ''}
-                    </div>
-                    <div class="microjob-meta">
-                        <span><i class="fas fa-tasks"></i> বাকি: ${job.remaining}/${job.total}</span>
-                        <span><i class="fas fa-clock"></i> ${new Date(job.createdAt).toLocaleDateString('bn-BD')}</span>
-                    </div>
-                    <div class="microjob-footer">
-                        <span class="microjob-status pending">উপলব্ধ</span>
-                        ${!alreadyApplied ? 
-                            '<button class="microjob-btn" onclick="event.stopPropagation(); showJobDetails(\'' + job.id + '\')">কাজ করুন</button>' : 
-                            '<button class="microjob-btn" disabled>ইতিমধ্যে নিয়েছেন</button>'}
-                    </div>
-                </div>
-            `;
-        });
-        
-        container.innerHTML = html;
-    }
-
-    // আমার মাইক্রোজব দেখান
-    function displayMyMicroJobs() {
-        const container = document.getElementById('my-microjobs-list');
-        if (!container) return;
-        
-        if (myJobSubmissions.length === 0) {
-            container.innerHTML = '<div class="info-box">আপনি এখনো কোনো কাজ করেননি</div>';
-            return;
-        }
-        
-        let html = '';
-        myJobSubmissions.reverse().forEach(sub => {
-            let statusClass = 'pending';
-            let statusText = 'পেন্ডিং';
-            
-            if (sub.status === 'approved') {
-                statusClass = 'completed';
-                statusText = 'অ্যাপ্রুভড';
-            } else if (sub.status === 'rejected') {
-                statusClass = 'rejected';
-                statusText = 'বাতিল';
-            }
-            
-            html += `
-                <div class="myjob-item ${statusClass}">
-                    <div class="myjob-header">
-                        <span class="myjob-title">${sub.jobTitle}</span>
-                        <span class="myjob-price">৳ ${sub.jobPrice}</span>
-                    </div>
-                    <div class="myjob-info">
-                        <i class="fas fa-calendar"></i> ${new Date(sub.submittedAt).toLocaleDateString('bn-BD')}
-                    </div>
-                    <div class="myjob-proof">
-                        <i class="fas fa-link"></i> প্রুফ: <a href="${sub.proof}" target="_blank">${sub.proof.substring(0, 30)}...</a>
-                    </div>
-                    <div>
-                        <span class="myjob-status ${statusClass}">${statusText}</span>
-                    </div>
-                </div>
-            `;
-        });
-        
-        container.innerHTML = html;
-    }
-
-    // ট্যাব সুইচ
-    function switchJobTab(tab) {
-        const tabs = document.querySelectorAll('#microjob-page .tab');
-        const contents = document.querySelectorAll('#microjob-page .tab-content');
-        
-        tabs.forEach(t => t.classList.remove('active'));
-        contents.forEach(c => c.classList.remove('active'));
-        
-        if (tab === 'available') {
-            tabs[0].classList.add('active');
-            document.getElementById('available-jobs').classList.add('active');
-            displayMicroJobs();
-        } else {
-            tabs[1].classList.add('active');
-            document.getElementById('myjobs-tab').classList.add('active');
-            displayMyMicroJobs();
-        }
-    }
-
-    // কাজের বিবরণ দেখান
-    function showJobDetails(jobId) {
-        const job = microJobs.find(j => j.id === jobId);
-        if (!job) return;
-        
-        currentJobId = jobId;
-        
-        document.getElementById('jobDetailTitle').innerText = job.title;
-        document.getElementById('jobDetailPrice').innerText = job.price;
-        document.getElementById('jobDetailDescription').innerText = job.description;
-        
-        hideAllPages();
-        document.getElementById('job-detail-page').classList.add('active');
-    }
-
-    // মাইক্রোজবে ফিরে যান
-    function goBackToMicroJobs() {
-        hideAllPages();
-        document.getElementById('microjob-page').classList.add('active');
-        switchJobTab('available');
-    }
-
-    // প্রুফ জমা দিন
-    async function submitJobProof() {
-        if (!currentUser || !currentJobId) {
-            showToast('কাজ নির্বাচন করুন প্রথমে', 'error');
-            return;
-        }
-        
-        const proof = document.getElementById('job-proof').value.trim();
-        if (!proof) {
-            showToast('প্রুফ লিঙ্ক দিন', 'error');
-            return;
-        }
-        
-        const job = microJobs.find(j => j.id === currentJobId);
-        if (!job) {
-            showToast('কাজটি আর নেই', 'error');
+        if (!name || !email || !password) {
+            showToast('সব তথ্য দিন', 'error');
             return;
         }
         
         showLoading();
         
         try {
-            const submissionData = {
-                jobId: currentJobId,
-                jobTitle: job.title,
-                jobPrice: job.price,
-                userId: currentUser.uid,
-                userName: currentUser.name,
-                proof: proof,
-                status: 'pending',
-                submittedAt: Date.now()
-            };
+            const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+            const user = userCredential.user;
             
-            await database.ref('jobSubmissions').push(submissionData);
+            await user.updateProfile({ displayName: name });
             
-            showToast('✅ প্রুফ জমা হয়েছে! এডমিন যাচাই করবেন', 'success');
+            // রেফারেল কোড সংরক্ষণ
+            if (referralCode) {
+                localStorage.setItem('signupReferral', referralCode);
+            }
             
-            document.getElementById('job-proof').value = '';
-            goBackToMicroJobs();
+            showToast('✅ একাউন্ট তৈরি হয়েছে!', 'success');
             
+            // No need to redirect, auth listener will handle it
         } catch (error) {
-            console.error('Proof submission error:', error);
-            showToast('প্রুফ জমা দিতে সমস্যা হয়েছে', 'error');
-        } finally {
+            console.error('Sign in error:', error);
+            showToast('একাউন্ট তৈরি করতে সমস্যা হয়েছে: ' + error.message, 'error');
             hideLoading();
         }
     }
 
-    // রেফারেল কোড জেনারেট করুন
-    function generateReferralCode(uid) {
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-        let code = '';
-        for (let i = 0; i < 6; i++) {
-            code += chars.charAt(Math.floor(Math.random() * chars.length));
+    // লগইন হ্যান্ডলার
+    async function handleLogin() {
+        const email = document.getElementById('login-email').value.trim();
+        const password = document.getElementById('login-password').value;
+        
+        if (!email || !password) {
+            showToast('ইমেইল ও পাসওয়ার্ড দিন', 'error');
+            return;
         }
-        return code + uid.substr(-4);
+        
+        showLoading();
+        
+        try {
+            await auth.signInWithEmailAndPassword(email, password);
+            // No need to redirect, auth listener will handle it
+        } catch (error) {
+            console.error('Login error:', error);
+            showToast('লগইন করতে সমস্যা হয়েছে: ' + error.message, 'error');
+            hideLoading();
+        }
+    }
+
+    // পেজ সুইচ ফাংশন
+    function switchPage(page) {
+        if (!currentUser) {
+            showToast('আপনাকে লগইন করতে হবে', 'error');
+            showLoginPage();
+            return;
+        }
+
+        hideAllPages();
+        const pageElement = document.getElementById(page + '-page');
+        if (pageElement) pageElement.classList.add('active');
+        
+        document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+        if (event && event.target) {
+            const navItem = event.target.closest('.nav-item');
+            if (navItem) navItem.classList.add('active');
+        }
+        
+        if (page === 'home') {
+            updateReferralUI();
+            showWelcomeNotice();
+            updateBanner();
+            updateHelpLinks();
+            updateAllPrices();
+        }
+        
+        if (page === 'wallet') {
+            updateWithdrawRequirementUI();
+            updateAllPrices();
+        }
+        
+        if (page === 'profile') {
+            updateProfileStats();
+        }
+        
+        if (page === 'ads') {
+            hasWatchedAd = false;
+            updateAdsRequirementUI();
+            
+            // এডস ফিচার বন্ধ থাকলে মেসেজ দেখান
+            if (!adminSettings.ads?.enabled) {
+                showToast('এডস ফিচারটি বন্ধ আছে', 'info');
+            }
+        }
+        
+        if (page === 'help-center') {
+            updateHelpLinks();
+        }
+        
+        if (page === 'gmail-sell' || page === 'facebook-sell' || page === 'telegram-sell' || page === 'whatsapp-sell') {
+            updateAllPrices();
+        }
+    }
+
+    function showSigninPage() {
+        hideAllPages();
+        const signinPage = document.getElementById('signin-page');
+        const loginPage = document.getElementById('login-page');
+        const bottomNav = document.getElementById('bottomNav');
+        
+        if (signinPage) signinPage.classList.add('active');
+        if (loginPage) loginPage.classList.remove('active');
+        if (bottomNav) bottomNav.style.display = 'none';
+    }
+
+    function showLoginPage() {
+        hideAllPages();
+        const signinPage = document.getElementById('signin-page');
+        const loginPage = document.getElementById('login-page');
+        const bottomNav = document.getElementById('bottomNav');
+        
+        if (signinPage) signinPage.classList.remove('active');
+        if (loginPage) loginPage.classList.add('active');
+        if (bottomNav) bottomNav.style.display = 'none';
+    }
+
+    function hideAllPages() {
+        let pages = ['signin', 'login', 'home', 'wallet', 'help-center', 'profile', 'gmail-sell', 'facebook-sell', 'telegram-sell', 'whatsapp-sell', 'daily-bonus', 'blood-donation', 'microjob', 'job-detail', 'jobpost', 'create-jobpost', 'ads', 'top-referrer', 'rank-badge'];
+        pages.forEach(page => {
+            let el = document.getElementById(page + '-page');
+            if (el) el.classList.remove('active');
+        });
+    }
+
+    function showHomePage() {
+        hideAllPages();
+        document.getElementById('home-page').classList.add('active');
+        document.getElementById('bottomNav').style.display = 'flex';
+        
+        document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+        document.querySelector('.nav-item[onclick="switchPage(\'home\')"]').classList.add('active');
+        
+        updateReferralUI();
+        showWelcomeNotice();
+        updateBanner();
+        updateBloodPost();
+        updateHelpLinks();
+        updateAllPrices();
+    }
+
+    function goBackToHome() {
+        showHomePage();
     }
 
     // বর্তমান র‍্যাঙ্ক পাওয়া
@@ -5013,15 +4727,22 @@
         
         const referralCodeDisplay = document.getElementById('referralCodeDisplay');
         const totalReferralsEl = document.getElementById('totalReferrals');
-        const referralEarningsEl = document.getElementById('referralEarnings');
         const referralRankEl = document.getElementById('referralRank');
+        const nextRankBonusEl = document.getElementById('nextRankBonus');
         
         if (referralCodeDisplay) referralCodeDisplay.innerText = currentUser.referralCode || 'নেই';
         if (totalReferralsEl) totalReferralsEl.innerText = currentUser.referrals || 0;
-        if (referralEarningsEl) referralEarningsEl.innerText = currentUser.referralEarnings || 0;
         
         const rank = getCurrentRank(currentUser.referrals || 0);
         if (referralRankEl) referralRankEl.innerHTML = `<span class="rank-badge ${rank.badge}">${rank.name}</span>`;
+        
+        // পরবর্তী র‍্যাঙ্ক বোনাস
+        const nextRank = getNextRank(rank);
+        if (nextRankBonusEl && nextRank) {
+            nextRankBonusEl.innerText = nextRank.bonus;
+        } else if (nextRankBonusEl) {
+            nextRankBonusEl.innerText = 'সর্বোচ্চ';
+        }
         
         // হোম পেজের র‍্যাঙ্ক ডিসপ্লে
         const userRankDisplay = document.getElementById('userRankDisplay');
@@ -5063,9 +4784,9 @@
         if (!requirementCard || !requirementTitle || !requirementSubtitle || !requirementStatus) return;
         
         if (referrals >= 10) {
-            // ব্রোঞ্জ বা তার উপরে - আনলকড
+            // লিডার বা তার উপরে - আনলকড
             requirementCard.className = 'withdraw-requirement unlocked';
-            requirementTitle.innerHTML = '✅ উত্তলনের জন্য ব্রোঞ্জ ব্যাজ অর্জিত!';
+            requirementTitle.innerHTML = '✅ উত্তলনের জন্য লিডার ব্যাজ অর্জিত!';
             requirementSubtitle.innerHTML = `আপনি এখন টাকা উত্তলন করতে পারবেন (বর্তমান র‍্যাঙ্ক: <span class="rank-badge ${currentRank.badge}">${currentRank.name}</span>)`;
             requirementStatus.innerHTML = '🔓 খোলা';
             requirementStatus.style.color = '#28a745';
@@ -5073,8 +4794,8 @@
             // লকড
             requirementCard.className = 'withdraw-requirement';
             const remaining = 10 - referrals;
-            requirementTitle.innerHTML = '🔒 উত্তলনের জন্য ব্রোঞ্জ ব্যাজ প্রয়োজন';
-            requirementSubtitle.innerHTML = `আরও ${remaining} জন রেফার করুন ব্রোঞ্জ র‍্যাঙ্ক পেতে (বর্তমান: ${referrals}/১০)`;
+            requirementTitle.innerHTML = '🔒 উত্তলনের জন্য লিডার ব্যাজ প্রয়োজন';
+            requirementSubtitle.innerHTML = `আরও ${remaining} জন রেফার করুন লিডার ব্যাজ পেতে (বর্তমান: ${referrals}/১০)`;
             requirementStatus.innerHTML = '🔒 বন্ধ';
             requirementStatus.style.color = '#ff9800';
         }
@@ -5090,7 +4811,7 @@
         const referrals = currentUser.referrals || 0;
         if (referrals < 10) {
             const remaining = 10 - referrals;
-            showToast(`🔒 উত্তলনের জন্য ব্রোঞ্জ র‍্যাঙ্ক প্রয়োজন! আরও ${remaining} জন রেফার করুন`, 'info');
+            showToast(`🔒 উত্তলনের জন্য লিডার ব্যাজ প্রয়োজন! আরও ${remaining} জন রেফার করুন`, 'info');
         } else {
             showToast('✅ আপনি উত্তলনের জন্য যোগ্য!', 'success');
         }
@@ -5105,10 +4826,10 @@
         
         const referrals = currentUser.referrals || 0;
         
-        // ব্রোঞ্জ র‍্যাঙ্ক চেক (১০ রেফার)
+        // লিডার ব্যাজ চেক (১০ রেফার)
         if (referrals < 10) {
             const remaining = 10 - referrals;
-            showToast(`⛔ উত্তলনের জন্য ব্রোঞ্জ র‍্যাঙ্ক প্রয়োজন! আরও ${remaining} জন রেফার করুন`, 'error');
+            showToast(`⛔ উত্তলনের জন্য লিডার ব্যাজ প্রয়োজন! আরও ${remaining} জন রেফার করুন`, 'error');
             
             // র‍্যাঙ্ক ব্যাজ পেজে নিয়ে যাওয়ার অপশন
             setTimeout(() => {
@@ -5192,6 +4913,7 @@
         const referrals = currentUser.referrals || 0;
         const currentRank = getCurrentRank(referrals);
         const nextRank = getNextRank(currentRank);
+        const claimedBonuses = currentUser.claimedBonuses || [];
         
         const currentRankDisplay = document.getElementById('currentRankDisplay');
         const currentRankName = document.getElementById('currentRankName');
@@ -5210,14 +4932,26 @@
             if (nextRankName) nextRankName.innerText = nextRank.name;
             const progress = ((referrals - currentRank.minReferrals) / (nextRank.minReferrals - currentRank.minReferrals)) * 100;
             if (rankProgressBar) rankProgressBar.style.width = Math.min(progress, 100) + '%';
-            if (rankRequirements) rankRequirements.innerHTML = 
-                `${referrals}/${nextRank.minReferrals} জন রেফার করুন <span class="rank-badge ${nextRank.badge}">${nextRank.name}</span> র‍্যাঙ্ক পেতে`;
-            if (rankRewardInfo) rankRewardInfo.innerHTML = `<i class="fas fa-gift"></i> ${nextRank.name} র‍্যাঙ্কে ${nextRank.reward} টাকা বোনাস`;
+            
+            let requirementText = `${referrals}/${nextRank.minReferrals} জন রেফার করুন <span class="rank-badge ${nextRank.badge}">${nextRank.name}</span> ব্যাজ পেতে`;
+            if (nextRank.bonus > 0) {
+                requirementText += ` (${nextRank.bonus} টাকা বোনাস)`;
+            }
+            if (nextRank.features && nextRank.features.length > 0) {
+                requirementText += `<br><small>✅ সুবিধা: ${nextRank.features.join(' • ')}</small>`;
+            }
+            if (rankRequirements) rankRequirements.innerHTML = requirementText;
+            
+            let rewardInfo = `<i class="fas fa-gift"></i> ${nextRank.name} ব্যাজে ${nextRank.bonus} টাকা বোনাস`;
+            if (nextRank.features && nextRank.features.length > 0) {
+                rewardInfo += `<br>✨ বিশেষ সুবিধা: ${nextRank.features.join(', ')}`;
+            }
+            if (rankRewardInfo) rankRewardInfo.innerHTML = rewardInfo;
         } else {
             if (nextRankName) nextRankName.innerText = 'সর্বোচ্চ';
             if (rankProgressBar) rankProgressBar.style.width = '100%';
-            if (rankRequirements) rankRequirements.innerHTML = 'আপনি সর্বোচ্চ র‍্যাঙ্কে পৌঁছে গেছেন!';
-            if (rankRewardInfo) rankRewardInfo.innerHTML = '<i class="fas fa-crown"></i> অভিনন্দন! আপনি লিজেন্ড র‍্যাঙ্ক অর্জন করেছেন';
+            if (rankRequirements) rankRequirements.innerHTML = 'আপনি সর্বোচ্চ র‍্যাঙ্কে পৌঁছে গেছেন! অভিনন্দন!';
+            if (rankRewardInfo) rankRewardInfo.innerHTML = '<i class="fas fa-crown"></i> অভিনন্দন! আপনি গ্র্যান্ড লিজেন্ড র‍্যাঙ্ক অর্জন করেছেন';
         }
         
         // ব্যাজ গ্রিড আপডেট
@@ -5225,12 +4959,19 @@
             let badgesHtml = '';
             RANKS.forEach(rank => {
                 const unlocked = referrals >= rank.minReferrals;
+                const bonusClaimed = claimedBonuses.includes(rank.name);
+                
                 badgesHtml += `
                     <div class="badge-item ${unlocked ? 'unlocked' : ''}">
                         <i class="fas fa-${rank.badge === 'legend' ? 'crown' : 'medal'}"></i>
                         <div class="badge-name">${rank.name}</div>
                         <div class="badge-requirement">${rank.minReferrals}+ জন</div>
-                        ${unlocked ? '<div class="unlocked-badge"><i class="fas fa-check-circle"></i> অর্জিত</div>' : ''}
+                        ${unlocked ? 
+                            (bonusClaimed ? 
+                                '<div class="unlocked-badge"><i class="fas fa-check-circle"></i> বোনাস নেওয়া হয়েছে</div>' : 
+                                '<div class="unlocked-badge" style="color: #ff9800;"><i class="fas fa-gift"></i> বোনাস নিন</div>') 
+                            : ''}
+                        ${rank.bonus > 0 ? `<div class="badge-requirement">বোনাস: ৳${rank.bonus}</div>` : ''}
                     </div>
                 `;
             });
@@ -5338,10 +5079,14 @@
                 <span class="close-btn" onclick="closeModal()">&times;</span>
             </div>
             <div class="info-box">
-                <p>✅ প্রতি রেফারে ৫ টাকা বোনাস</p>
-                <p>✅ রেফারেল কোড শেয়ার করে বন্ধুদের যুক্ত করুন</p>
-                <p>✅ র‍্যাঙ্ক আপগ্রেডে বিশেষ বোনাস</p>
-                <p>✅ সাপ্তাহিক টপ রেফারার পুরস্কার</p>
+                <p>✅ রেফারেল এ কোনো টাকা নেই!</p>
+                <p>✅ শুধুমাত্র ব্যাজ আপগ্রেডে বোনাস</p>
+                <p>✅ লিডার ব্যাজ (১০ রেফার) - ২০ টাকা</p>
+                <p>✅ সিলভার ব্যাজ (২৫ রেফার) - ৮০ টাকা + সোশাল মিডিয়া সেলারি</p>
+                <p>✅ গোল্ড ব্যাজ (৫০ রেফার) - ১২০ টাকা + সোশাল মিডিয়া সেলারি + ভিডিও সুবিধা</p>
+                <p>✅ লিজেন্ড ব্যাজ (১০০ রেফার) - ২৫০ টাকা + সোশাল মিডিয়া সেলারি + ভার্চুয়াল VISA Card</p>
+                <p>✅ গ্র্যান্ড লিজেন্ড (২০০+ রেফার) - ৫০০ টাকা + স্পেশাল গিফট</p>
+                <p>📢 সোশাল মিডিয়া সেলারি ও অন্যান্য সুবিধার জন্য এডমিনের সাথে যোগাযোগ করুন</p>
             </div>
         `;
         showModal(html);
@@ -5356,13 +5101,12 @@
             </div>
             <div class="info-box">
                 <p><span class="rank-badge iron">আয়রন</span> ০-৯ জন (০ টাকা)</p>
-                <p><span class="rank-badge bronze">ব্রোঞ্জ</span> ১০-২৪ জন (২০ টাকা)</p>
-                <p><span class="rank-badge silver">সিলভার</span> ২৫-৪৯ জন (৫০ টাকা)</p>
-                <p><span class="rank-badge gold">গোল্ড</span> ৫০-৯৯ জন (১০০ টাকা)</p>
-                <p><span class="rank-badge platinum">প্লাটিনাম</span> ১০০-১৯৯ জন (২০০ টাকা)</p>
-                <p><span class="rank-badge diamond">ডায়মন্ড</span> ২০০-৪৯৯ জন (৫০০ টাকা)</p>
-                <p><span class="rank-badge master">মাস্টার</span> ৫০০-৯৯৯ জন (১০০০ টাকা)</p>
-                <p><span class="rank-badge legend">লিজেন্ড</span> ১০০০+ জন (২০০০ টাকা)</p>
+                <p><span class="rank-badge leader">লিডার</span> ১০-২৪ জন (২০ টাকা)</p>
+                <p><span class="rank-badge silver">সিলভার</span> ২৫-৪৯ জন (৮০ টাকা + সোশাল মিডিয়া সেলারি)</p>
+                <p><span class="rank-badge gold">গোল্ড</span> ৫০-৯৯ জন (১২০ টাকা + সোশাল মিডিয়া সেলারি + ভিডিও)</p>
+                <p><span class="rank-badge legend">লিজেন্ড</span> ১০০-১৯৯ জন (২৫০ টাকা + সোশাল মিডিয়া সেলারি + VISA Card)</p>
+                <p><span class="rank-badge legend">গ্র্যান্ড লিজেন্ড</span> ২০০+ জন (৫০০ টাকা + স্পেশাল গিফট)</p>
+                <p class="info-box" style="margin-top: 10px;">✅ র‍্যাঙ্ক আপগ্রেডের সাথে সাথে বোনাস স্বয়ংক্রিয়ভাবে যোগ হবে</p>
             </div>
         `;
         showModal(html);
@@ -5370,6 +5114,8 @@
 
     // সব ইউজার লোড করুন
     async function loadAllUsers() {
+        if (!database) return;
+        
         try {
             const snapshot = await database.ref('users').once('value');
             allUsers = [];
@@ -5640,7 +5386,6 @@
         
         const balance = calculateUserBalance(currentUser);
         const profileBalance = document.getElementById('profileBalance');
-        const profileTasks = document.getElementById('profileTasks');
         const profileReferrals = document.getElementById('profileReferrals');
         const profileBonus = document.getElementById('profileBonus');
         const profileName = document.getElementById('profileName');
@@ -5648,11 +5393,6 @@
         const avatarIcon = document.getElementById('profileAvatarIcon');
         
         if (profileBalance) profileBalance.innerText = balance;
-        
-        const totalTasks = (currentUser.gmailCount || 0) + (currentUser.facebookCount || 0) + 
-                          (currentUser.telegramCount || 0) + (currentUser.whatsappCount || 0);
-        if (profileTasks) profileTasks.innerText = totalTasks;
-        
         if (profileReferrals) profileReferrals.innerText = currentUser.referrals || 0;
         if (profileBonus) profileBonus.innerText = currentUser.dailyBonus || 0;
         if (profileName) profileName.innerText = currentUser.name || '-';
@@ -5663,365 +5403,216 @@
         }
     }
 
-    // Firebase Auth state observer
-    if (auth) {
-        auth.onAuthStateChanged(async (user) => {
-            console.log("Auth state changed:", user ? "Logged in" : "Not logged in");
-            
-            if (user) {
-                try {
-                    console.log("User logged in:", user.email);
-                    
-                    const userRef = database.ref('users/' + user.uid);
-                    const snapshot = await userRef.once('value');
-                    
-                    if (snapshot.exists()) {
-                        currentUser = snapshot.val();
-                        currentUser.uid = user.uid;
-                        
-                        if (currentUser.banned) {
-                            await auth.signOut();
-                            showToast('আপনার একাউন্ট ব্যান করা হয়েছে!', 'error');
-                            showSigninPage();
-                            hideLoading();
-                            return;
-                        }
-                        
-                        // ডিফল্ট ভ্যালু সেট
-                        if (currentUser.voucherBalance === undefined) currentUser.voucherBalance = 0;
-                        if (currentUser.microjobEarn === undefined) currentUser.microjobEarn = 0;
-                        if (currentUser.jobpostEarn === undefined) currentUser.jobpostEarn = 0;
-                        if (currentUser.adsEarn === undefined) currentUser.adsEarn = 0;
-                        if (currentUser.gmailCount === undefined) currentUser.gmailCount = 0;
-                        if (currentUser.facebookCount === undefined) currentUser.facebookCount = 0;
-                        if (currentUser.telegramCount === undefined) currentUser.telegramCount = 0;
-                        if (currentUser.whatsappCount === undefined) currentUser.whatsappCount = 0;
-                        if (currentUser.referrals === undefined) currentUser.referrals = 0;
-                        if (currentUser.referralEarnings === undefined) currentUser.referralEarnings = 0;
-                        if (currentUser.referredBy === undefined) currentUser.referredBy = null;
-                        
-                        // রেফারেল কোড জেনারেট করুন যদি না থাকে
-                        if (!currentUser.referralCode) {
-                            currentUser.referralCode = generateReferralCode(currentUser.uid);
-                            await database.ref('users/' + currentUser.uid).update({
-                                referralCode: currentUser.referralCode
-                            });
-                        }
-                        
-                        // সেল হিস্টোরি লোড
-                        const sellHistoryRef = database.ref('sellHistory/' + user.uid);
-                        const sellSnapshot = await sellHistoryRef.once('value');
-                        if (sellSnapshot.exists()) {
-                            sellHistory = sellSnapshot.val() || [];
-                        } else {
-                            sellHistory = [];
-                        }
-                        
-                        // উত্তলন হিস্টোরি লোড
-                        const withdrawHistoryRef = database.ref('withdrawals')
-                            .orderByChild('userId')
-                            .equalTo(user.uid);
-                        const withdrawSnapshot = await withdrawHistoryRef.once('value');
-                        withdrawHistory = [];
-                        withdrawSnapshot.forEach((childSnapshot) => {
-                            withdrawHistory.push({
-                                id: childSnapshot.key,
-                                ...childSnapshot.val()
-                            });
-                        });
-                        
-                        // এডমিন সেটিংস লোড (ইতিমধ্যে লিসেনার আছে)
-                        
-                        // সব ইউজার লোড করুন
-                        await loadAllUsers();
-                        
-                        hideAllPages();
-                        document.getElementById('home-page').classList.add('active');
-                        document.getElementById('bottomNav').style.display = 'flex';
-                        
-                        document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-                        document.querySelector('.nav-item[onclick="switchPage(\'home\')"]').classList.add('active');
-                        
-                        updateUI();
-                        updateVisaCard();
-                        updateVoucherBalance();
-                        showWelcomeNotice();
-                        updateAllPrices();
-                        updateAllProgressBars();
-                        updateProjectStatus();
-                        updateBloodPost();
-                        updateReferralUI();
-                        updateMicroJobsCount();
-                        updateJobPostsCount();
-                        startResetTimers();
-                        
-                        await loadMyBloodRequests();
-                        
-                        hideLoading();
-                    } else {
-                        console.log("User data not found, creating new user data");
-                        // নতুন ইউজারের জন্য ডাটা তৈরি
-                        const referralCode = document.getElementById('signin-referral')?.value || null;
-                        let referredBy = null;
-                        
-                        // রেফারেল কোড চেক করুন
-                        if (referralCode) {
-                            const snapshot = await database.ref('users').orderByChild('referralCode').equalTo(referralCode).once('value');
-                            if (snapshot.exists()) {
-                                snapshot.forEach(child => {
-                                    referredBy = child.key;
-                                });
-                            }
-                        }
-                        
-                        const newUserData = {
-                            name: user.displayName || user.email.split('@')[0],
-                            email: user.email,
-                            uid: user.uid,
-                            gmailEarn: 0,
-                            facebookEarn: 0,
-                            telegramEarn: 0,
-                            whatsappEarn: 0,
-                            microjobEarn: 0,
-                            jobpostEarn: 0,
-                            adsEarn: 0,
-                            dailyBonus: 0,
-                            voucherBalance: 0,
-                            manualAdded: 0,
-                            manualRemoved: 0,
-                            gmailCount: 0,
-                            facebookCount: 0,
-                            telegramCount: 0,
-                            whatsappCount: 0,
-                            totalWithdrawn: 0,
-                            referrals: 0,
-                            referralEarnings: 0,
-                            referredBy: referredBy,
-                            referralCode: generateReferralCode(user.uid),
-                            completedTasks: {
-                                gmail: false,
-                                facebook: false,
-                                telegram: false,
-                                whatsapp: false
-                            },
-                            createdAt: Date.now(),
-                            banned: false
-                        };
-                        
-                        await database.ref('users/' + user.uid).set(newUserData);
-                        
-                        // রেফারার আপডেট করুন
-                        if (referredBy) {
-                            const referrerRef = database.ref('users/' + referredBy);
-                            const referrerSnapshot = await referrerRef.once('value');
-                            if (referrerSnapshot.exists()) {
-                                const referrer = referrerSnapshot.val();
-                                await referrerRef.update({
-                                    referrals: (referrer.referrals || 0) + 1,
-                                    referralEarnings: (referrer.referralEarnings || 0) + 5
-                                });
-                                
-                                // রেফারার ব্যালেন্সে ৫ টাকা যোগ করুন
-                                await referrerRef.update({
-                                    manualAdded: (referrer.manualAdded || 0) + 5
-                                });
-                            }
-                        }
-                        
-                        currentUser = newUserData;
-                        
-                        await loadAllUsers();
-                        
-                        hideAllPages();
-                        document.getElementById('home-page').classList.add('active');
-                        document.getElementById('bottomNav').style.display = 'flex';
-                        
-                        updateUI();
-                        updateVisaCard();
-                        updateVoucherBalance();
-                        showWelcomeNotice();
-                        updateAllPrices();
-                        hideLoading();
+    // এডমিন সেটিংস লোড করার জন্য লিসেনার
+    function loadAdminSettings() {
+        if (!database) return;
+        
+        const settingsRef = database.ref('settings');
+        settingsRef.on('value', (snapshot) => {
+            if (snapshot.exists()) {
+                const newSettings = snapshot.val();
+                
+                // enabled প্রপার্টি চেক
+                const types = ['gmail', 'facebook', 'telegram', 'whatsapp'];
+                types.forEach(type => {
+                    if (newSettings[type] && newSettings[type].enabled === undefined) {
+                        newSettings[type].enabled = true;
                     }
-                } catch (error) {
-                    console.error("Error loading user data:", error);
-                    showToast('ডাটা লোড করতে সমস্যা হয়েছে: ' + error.message, 'error');
-                    hideLoading();
+                });
+                
+                if (!newSettings.ads) {
+                    newSettings.ads = { enabled: true, link: 'https://example.com/ads' };
                 }
+                
+                // পুরনো সেটিংসের সাথে তুলনা করে পরিবর্তন হলে নোটিফিকেশন দেখান
+                if (JSON.stringify(adminSettings) !== JSON.stringify(newSettings)) {
+                    adminSettings = newSettings;
+                    console.log("Settings updated:", adminSettings);
+                    
+                    // ব্যানার আপডেট
+                    updateBanner();
+                    
+                    // হেল্প লিংক আপডেট
+                    updateHelpLinks();
+                    
+                    // প্রোজেক্ট স্ট্যাটাস আপডেট
+                    updateProjectStatus();
+                    
+                    // প্রাইস আপডেট
+                    updateAllPrices();
+                    
+                    // নোটিফিকেশন দেখান
+                    showUpdateNotification();
+                }
+            }
+        }, (error) => {
+            console.error("Settings listener error:", error);
+        });
+    }
+
+    // সব প্রাইস আপডেট করুন
+    function updateAllPrices() {
+        // হোম পেজের প্রাইস
+        const gmailPrice = document.getElementById('gmailPrice');
+        const fbPrice = document.getElementById('facebookPrice');
+        const tgPrice = document.getElementById('telegramPrice');
+        const waPrice = document.getElementById('whatsappPrice');
+        
+        if (gmailPrice) gmailPrice.innerText = `৳ ${adminSettings.gmail?.price || 10}`;
+        if (fbPrice) fbPrice.innerText = `৳ ${adminSettings.facebook?.price || 10}`;
+        if (tgPrice) tgPrice.innerText = `৳ ${adminSettings.telegram?.price || 15}`;
+        if (waPrice) waPrice.innerText = `৳ ${adminSettings.whatsapp?.price || 15}`;
+        
+        // সেল পেজের প্রাইস ভ্যালু
+        const gmailVal = document.getElementById('gmailPriceValue');
+        const fbVal = document.getElementById('facebookPriceValue');
+        const tgVal = document.getElementById('telegramPriceValue');
+        const waVal = document.getElementById('whatsappPriceValue');
+        
+        if (gmailVal) gmailVal.innerText = adminSettings.gmail?.price || 10;
+        if (fbVal) fbVal.innerText = adminSettings.facebook?.price || 10;
+        if (tgVal) tgVal.innerText = adminSettings.telegram?.price || 15;
+        if (waVal) waVal.innerText = adminSettings.whatsapp?.price || 15;
+        
+        // ওয়ালেট পেজের প্রাইস
+        const gmailP2 = document.getElementById('gmailPrice2');
+        const fbP2 = document.getElementById('facebookPrice2');
+        const tgP2 = document.getElementById('telegramPrice2');
+        const waP2 = document.getElementById('whatsappPrice2');
+        
+        if (gmailP2) gmailP2.innerText = adminSettings.gmail?.price || 10;
+        if (fbP2) fbP2.innerText = adminSettings.facebook?.price || 10;
+        if (tgP2) tgP2.innerText = adminSettings.telegram?.price || 15;
+        if (waP2) waP2.innerText = adminSettings.whatsapp?.price || 15;
+        
+        // ডেইলি বোনাস পেজের প্রাইস
+        const task1 = document.getElementById('task1Price');
+        const task2 = document.getElementById('task2Price');
+        const task3 = document.getElementById('task3Price');
+        const task4 = document.getElementById('task4Price');
+        
+        if (task1) task1.innerText = adminSettings.gmail?.price || 10;
+        if (task2) task2.innerText = adminSettings.facebook?.price || 10;
+        if (task3) task3.innerText = adminSettings.telegram?.price || 15;
+        if (task4) task4.innerText = adminSettings.whatsapp?.price || 15;
+        
+        // বোনাস
+        const bonusDisplay = document.getElementById('bonusAmountDisplay');
+        const claimBonus = document.getElementById('claimBonusAmount');
+        
+        if (bonusDisplay) bonusDisplay.innerText = adminSettings.bonus || 50;
+        if (claimBonus) claimBonus.innerText = adminSettings.bonus || 50;
+        
+        // এডমিন বিকাশ নম্বর
+        const adminBkash = document.getElementById('adminBkashNumber');
+        if (adminBkash && adminSettings.bkashNumber) {
+            adminBkash.innerText = adminSettings.bkashNumber;
+        }
+        
+        // এডমিন তথ্য আপডেট
+        const updateTime = new Date().toLocaleTimeString('bn-BD');
+        
+        const gmailEmail = document.getElementById('gmailAdminEmail');
+        const gmailPass = document.getElementById('gmailAdminPassword');
+        const gmailTime = document.getElementById('gmailUpdateTime');
+        
+        if (gmailEmail) gmailEmail.innerText = adminSettings.gmail?.email || 'gmail.sell@onlineproject.com';
+        if (gmailPass) gmailPass.innerText = adminSettings.gmail?.password || 'Gmail@2024';
+        if (gmailTime) gmailTime.innerText = `সর্বশেষ আপডেট: ${updateTime}`;
+        
+        const fbEmail = document.getElementById('facebookAdminEmail');
+        const fbPass = document.getElementById('facebookAdminPassword');
+        const fbTime = document.getElementById('facebookUpdateTime');
+        
+        if (fbEmail) fbEmail.innerText = adminSettings.facebook?.email || 'fb.sell@onlineproject.com';
+        if (fbPass) fbPass.innerText = adminSettings.facebook?.password || 'Facebook@2024';
+        if (fbTime) fbTime.innerText = `সর্বশেষ আপডেট: ${updateTime}`;
+        
+        const tgPhone = document.getElementById('telegramAdminPhone');
+        const tgPass = document.getElementById('telegramAdminPassword');
+        const tgTime = document.getElementById('telegramUpdateTime');
+        
+        if (tgPhone) tgPhone.innerText = adminSettings.telegram?.phone || '+8801700000000';
+        if (tgPass) tgPass.innerText = adminSettings.telegram?.password || 'Telegram@2024';
+        if (tgTime) tgTime.innerText = `সর্বশেষ আপডেট: ${updateTime}`;
+        
+        const waPhone = document.getElementById('whatsappAdminPhone');
+        const waPass = document.getElementById('whatsappAdminPassword');
+        const waTime = document.getElementById('whatsappUpdateTime');
+        
+        if (waPhone) waPhone.innerText = adminSettings.whatsapp?.phone || '+8801700000000';
+        if (waPass) waPass.innerText = adminSettings.whatsapp?.password || 'WhatsApp@2024';
+        if (waTime) waTime.innerText = `সর্বশেষ আপডেট: ${updateTime}`;
+    }
+
+    // প্রোজেক্ট স্ট্যাটাস আপডেট
+    function updateProjectStatus() {
+        const types = ['gmail', 'facebook', 'telegram', 'whatsapp'];
+        
+        types.forEach(type => {
+            // হোম পেজের কার্ড আপডেট
+            const card = document.getElementById(type + '-card');
+            if (card) {
+                const enabled = adminSettings[type]?.enabled !== false;
+                if (!enabled) {
+                    card.classList.add('project-disabled');
+                } else {
+                    card.classList.remove('project-disabled');
+                }
+            }
+            
+            // সেল পেজের ডিসএবল মেসেজ
+            const disabledMsg = document.getElementById(type + '-disabled-message');
+            const submitBtn = document.getElementById(type + 'SubmitBtn');
+            const inputs = document.querySelectorAll(`#${type}-sell-page input`);
+            
+            if (disabledMsg && submitBtn) {
+                const enabled = adminSettings[type]?.enabled !== false;
+                if (!enabled) {
+                    disabledMsg.style.display = 'flex';
+                    submitBtn.disabled = true;
+                    inputs.forEach(input => input.disabled = true);
+                } else {
+                    disabledMsg.style.display = 'none';
+                    submitBtn.disabled = false;
+                    inputs.forEach(input => input.disabled = false);
+                }
+            }
+            
+            // ডেইলি বোনাস পেজের বাটন আপডেট
+            const taskBtn = document.getElementById('task' + (types.indexOf(type) + 1) + 'Btn');
+            if (taskBtn) {
+                const enabled = adminSettings[type]?.enabled !== false;
+                if (!enabled) {
+                    taskBtn.disabled = true;
+                    taskBtn.style.opacity = '0.5';
+                    taskBtn.title = 'এই প্রোজেক্টটি বন্ধ আছে';
+                } else {
+                    taskBtn.disabled = false;
+                    taskBtn.style.opacity = '1';
+                    taskBtn.title = '';
+                }
+            }
+            
+            // প্রোগ্রেস বার আপডেট
+            if (currentUser) {
+                updateProgressBar(type);
+            }
+        });
+        
+        // এডস স্ট্যাটাস আপডেট
+        const adsEnabled = adminSettings.ads?.enabled !== false;
+        const adsCard = document.querySelector('.feature-card[onclick="showAdsPage()"]');
+        if (adsCard) {
+            if (!adsEnabled) {
+                adsCard.classList.add('project-disabled');
             } else {
-                console.log("User not logged in");
-                currentUser = null;
-                showSigninPage();
-                hideLoading();
-            }
-        });
-    } else {
-        console.error("Auth not initialized");
-        hideLoading();
-        showSigninPage();
-    }
-
-    // সাইন ইন হ্যান্ডলার
-    async function handleSignIn() {
-        const name = document.getElementById('signin-name').value.trim();
-        const email = document.getElementById('signin-email').value.trim();
-        const password = document.getElementById('signin-password').value;
-        
-        if (!name || !email || !password) {
-            showToast('সব তথ্য দিন', 'error');
-            return;
-        }
-        
-        showLoading();
-        
-        try {
-            const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-            const user = userCredential.user;
-            
-            await user.updateProfile({ displayName: name });
-            
-            // রেফারেল কোড পাস করার জন্য
-            const referralCode = document.getElementById('signin-referral').value.trim();
-            
-            if (referralCode) {
-                localStorage.setItem('signupReferral', referralCode);
-            }
-            
-            showToast('✅ একাউন্ট তৈরি হয়েছে!', 'success');
-            
-        } catch (error) {
-            console.error('Sign in error:', error);
-            showToast('একাউন্ট তৈরি করতে সমস্যা হয়েছে: ' + error.message, 'error');
-            hideLoading();
-        }
-    }
-
-    // লগইন হ্যান্ডলার
-    async function handleLogin() {
-        const email = document.getElementById('login-email').value.trim();
-        const password = document.getElementById('login-password').value;
-        
-        if (!email || !password) {
-            showToast('ইমেইল ও পাসওয়ার্ড দিন', 'error');
-            return;
-        }
-        
-        showLoading();
-        
-        try {
-            await auth.signInWithEmailAndPassword(email, password);
-        } catch (error) {
-            console.error('Login error:', error);
-            showToast('লগইন করতে সমস্যা হয়েছে: ' + error.message, 'error');
-            hideLoading();
-        }
-    }
-
-    // পেজ সুইচ ফাংশন
-    function switchPage(page) {
-        if (!currentUser) {
-            showToast('আপনাকে লগইন করতে হবে', 'error');
-            showLoginPage();
-            return;
-        }
-
-        hideAllPages();
-        const pageElement = document.getElementById(page + '-page');
-        if (pageElement) pageElement.classList.add('active');
-        
-        document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-        if (event && event.target) {
-            const navItem = event.target.closest('.nav-item');
-            if (navItem) navItem.classList.add('active');
-        }
-        
-        if (page === 'home') {
-            updateReferralUI();
-            showWelcomeNotice();
-            updateBanner();
-            updateHelpLinks();
-            updateAllPrices();
-        }
-        
-        if (page === 'wallet') {
-            updateWithdrawRequirementUI();
-            updateAllPrices();
-        }
-        
-        if (page === 'profile') {
-            updateProfileStats();
-        }
-        
-        if (page === 'ads') {
-            hasWatchedAd = false;
-            updateAdsRequirementUI();
-            
-            // এডস ফিচার বন্ধ থাকলে মেসেজ দেখান
-            if (!adminSettings.ads?.enabled) {
-                showToast('এডস ফিচারটি বন্ধ আছে', 'info');
+                adsCard.classList.remove('project-disabled');
             }
         }
-        
-        if (page === 'help-center') {
-            updateHelpLinks();
-        }
-        
-        if (page === 'gmail-sell' || page === 'facebook-sell' || page === 'telegram-sell' || page === 'whatsapp-sell') {
-            updateAllPrices();
-        }
     }
 
-    function showSigninPage() {
-        hideAllPages();
-        const signinPage = document.getElementById('signin-page');
-        const loginPage = document.getElementById('login-page');
-        const bottomNav = document.getElementById('bottomNav');
-        
-        if (signinPage) signinPage.classList.add('active');
-        if (loginPage) loginPage.classList.remove('active');
-        if (bottomNav) bottomNav.style.display = 'none';
-    }
-
-    function showLoginPage() {
-        hideAllPages();
-        const signinPage = document.getElementById('signin-page');
-        const loginPage = document.getElementById('login-page');
-        const bottomNav = document.getElementById('bottomNav');
-        
-        if (signinPage) signinPage.classList.remove('active');
-        if (loginPage) loginPage.classList.add('active');
-        if (bottomNav) bottomNav.style.display = 'none';
-    }
-
-    function hideAllPages() {
-        let pages = ['signin', 'login', 'home', 'wallet', 'help-center', 'profile', 'gmail-sell', 'facebook-sell', 'telegram-sell', 'whatsapp-sell', 'daily-bonus', 'blood-donation', 'microjob', 'job-detail', 'jobpost', 'create-jobpost', 'ads', 'top-referrer', 'rank-badge'];
-        pages.forEach(page => {
-            let el = document.getElementById(page + '-page');
-            if (el) el.classList.remove('active');
-        });
-    }
-
-    function showHomePage() {
-        hideAllPages();
-        document.getElementById('home-page').classList.add('active');
-        document.getElementById('bottomNav').style.display = 'flex';
-        
-        document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-        document.querySelector('.nav-item[onclick="switchPage(\'home\')"]').classList.add('active');
-        
-        updateReferralUI();
-        showWelcomeNotice();
-        updateBanner();
-        updateBloodPost();
-        updateHelpLinks();
-        updateAllPrices();
-    }
-
-    function goBackToHome() {
-        showHomePage();
-    }
-
-    // অন্যান্য ফাংশন
+    // অন্যান্য ফাংশন (যেগুলো আগে থেকে আছে)
     function showWelcomeNotice() {
         let notice = document.getElementById('welcomeNotice');
         if (notice) notice.style.display = 'block';
@@ -6528,7 +6119,7 @@
         
         const referrals = currentUser.referrals || 0;
         if (referrals < 10) {
-            showToast('⛔ উত্তলনের জন্য ব্রোঞ্জ র‍্যাঙ্ক প্রয়োজন!', 'error');
+            showToast('⛔ উত্তলনের জন্য লিডার ব্যাজ প্রয়োজন!', 'error');
             closeWithdrawModal();
             return;
         }
@@ -7191,7 +6782,494 @@
     }
 
     function logout() {
-        auth.signOut();
+        auth.signOut().then(() => {
+            showToast('লগআউট হয়েছে', 'success');
+        }).catch((error) => {
+            console.error('Logout error:', error);
+        });
+    }
+
+    // এডস টাইমার শুরু
+    function startAdsTimer() {
+        if (adsTimer) clearInterval(adsTimer);
+        adsTimer = setInterval(checkAdsReset, 60000); // প্রতি মিনিটে চেক
+    }
+
+    // এডস রিসেট চেক
+    function checkAdsReset() {
+        const lastReset = localStorage.getItem('adsLastReset');
+        const today = new Date().toDateString();
+        
+        if (lastReset !== today) {
+            // নতুন দিন শুরু - রিসেট
+            todayAdsWatched = 0;
+            todayAdsEarned = 0;
+            hasWatchedAd = false;
+            localStorage.setItem('adsLastReset', today);
+            localStorage.setItem('todayAdsWatched', '0');
+            localStorage.setItem('todayAdsEarned', '0');
+        } else {
+            // লোড করা মান
+            todayAdsWatched = parseInt(localStorage.getItem('todayAdsWatched') || '0');
+            todayAdsEarned = parseFloat(localStorage.getItem('todayAdsEarned') || '0');
+        }
+        
+        updateAdsUI();
+    }
+
+    // এডস UI আপডেট
+    function updateAdsUI() {
+        const todayAdsWatchedEl = document.getElementById('todayAdsWatched');
+        const todayAdsEarnedEl = document.getElementById('todayAdsEarned');
+        const adsProgressCountEl = document.getElementById('adsProgressCount');
+        const totalAdsEarnedTodayEl = document.getElementById('totalAdsEarnedToday');
+        const adsProgressBarEl = document.getElementById('adsProgressBar');
+        const adsEarningTodayEl = document.getElementById('adsEarningToday');
+        
+        if (todayAdsWatchedEl) todayAdsWatchedEl.innerText = todayAdsWatched;
+        if (todayAdsEarnedEl) todayAdsEarnedEl.innerText = todayAdsEarned.toFixed(2);
+        if (adsProgressCountEl) adsProgressCountEl.innerText = `${todayAdsWatched}/${MAX_ADS}`;
+        if (totalAdsEarnedTodayEl) totalAdsEarnedTodayEl.innerText = todayAdsEarned.toFixed(2);
+        
+        const progressPercent = (todayAdsWatched / MAX_ADS) * 100;
+        if (adsProgressBarEl) adsProgressBarEl.style.width = progressPercent + '%';
+        
+        if (adsEarningTodayEl) adsEarningTodayEl.innerText = `আজ: ${todayAdsEarned.toFixed(2)} টাকা`;
+    }
+
+    // এডস প্রয়োজনীয়তা UI আপডেট
+    function updateAdsRequirementUI() {
+        if (!currentUser) return;
+        
+        const referrals = currentUser.referrals || 0;
+        const requirementCard = document.getElementById('adsRequirementCard');
+        const requirementTitle = document.getElementById('adsRequirementTitle');
+        const requirementSubtitle = document.getElementById('adsRequirementSubtitle');
+        const requirementStatus = document.getElementById('adsRequirementStatus');
+        
+        if (!requirementCard || !requirementTitle || !requirementSubtitle || !requirementStatus) return;
+        
+        if (referrals >= 10) {
+            // লিডার বা তার উপরে - আনলকড
+            requirementCard.className = 'ads-requirement unlocked';
+            requirementTitle.innerHTML = '✅ এডস দেখার জন্য লিডার ব্যাজ অর্জিত!';
+            requirementSubtitle.innerHTML = `আপনি এখন এডস দেখে ইনকাম করতে পারবেন`;
+            requirementStatus.innerHTML = '🔓 খোলা';
+            requirementStatus.style.color = '#28a745';
+        } else {
+            // লকড
+            requirementCard.className = 'ads-requirement';
+            const remaining = 10 - referrals;
+            requirementTitle.innerHTML = '🔒 এডস দেখার জন্য লিডার ব্যাজ প্রয়োজন';
+            requirementSubtitle.innerHTML = `আরও ${remaining} জন রেফার করুন লিডার ব্যাজ পেতে (বর্তমান: ${referrals}/১০)`;
+            requirementStatus.innerHTML = '🔒 বন্ধ';
+            requirementStatus.style.color = '#ff9800';
+        }
+    }
+
+    // এডস প্রয়োজনীয়তা চেক (কার্ড ক্লিক করলে)
+    function checkAdsRequirement() {
+        if (!currentUser) {
+            showToast('আপনাকে লগইন করতে হবে', 'error');
+            return;
+        }
+        
+        const referrals = currentUser.referrals || 0;
+        if (referrals < 10) {
+            const remaining = 10 - referrals;
+            showToast(`🔒 এডস দেখার জন্য লিডার ব্যাজ প্রয়োজন! আরও ${remaining} জন রেফার করুন`, 'info');
+        } else {
+            showToast('✅ আপনি এডস দেখার জন্য যোগ্য!', 'success');
+        }
+    }
+
+    // এডস দেখুন বাটন - লিডার ব্যাজ চেক সহ
+    function watchAd() {
+        if (!currentUser) {
+            showToast('আপনাকে লগইন করতে হবে', 'error');
+            return;
+        }
+        
+        // এডস ফিচার চালু আছে কিনা চেক
+        if (!adminSettings.ads?.enabled) {
+            showToast('এডস ফিচারটি বন্ধ আছে', 'error');
+            return;
+        }
+        
+        const referrals = currentUser.referrals || 0;
+        
+        // লিডার ব্যাজ চেক (১০ রেফার)
+        if (referrals < 10) {
+            const remaining = 10 - referrals;
+            showToast(`🔒 এডস দেখার জন্য লিডার ব্যাজ প্রয়োজন! আরও ${remaining} জন রেফার করুন`, 'error');
+            
+            // র‍্যাঙ্ক ব্যাজ পেজে নিয়ে যাওয়ার অপশন
+            setTimeout(() => {
+                if (confirm('র‍্যাঙ্ক ব্যাজ পেজে যেতে চান?')) {
+                    showRankBadgePage();
+                }
+            }, 1000);
+            
+            return;
+        }
+        
+        if (todayAdsWatched >= MAX_ADS) {
+            showToast('আজকের এডস লিমিট শেষ! আগামীকাল আবার চেষ্টা করুন।', 'error');
+            return;
+        }
+        
+        hasWatchedAd = true;
+        
+        // এডস ভিউয়ার আপডেট
+        const adsViewer = document.getElementById('adsViewer');
+        if (adsViewer) {
+            // প্লেসহোল্ডার সরান
+            adsViewer.innerHTML = '<div class="ads-placeholder"><i class="fas fa-spinner fa-spin" style="font-size: 30px; color: #667eea;"></i><br>এডস লোড হচ্ছে...</div>';
+            
+            // SDK এডস দেখানোর চেষ্টা করুন
+            if (typeof window.show_10563791 === 'function') {
+                try {
+                    window.show_10563791();
+                    showToast('এডস দেখা শুরু হয়েছে। দেখার পর "দেখা শেষ" বাটনে ক্লিক করুন।', 'info');
+                } catch (e) {
+                    console.error("SDK error:", e);
+                    // SDK ব্যর্থ হলে ফ্যালব্যাক
+                    adsViewer.innerHTML = '<div class="ads-placeholder"><i class="fas fa-external-link-alt" style="font-size: 30px; color: #667eea;"></i><br>এডস নতুন ট্যাবে খোলা হয়েছে...</div>';
+                    window.open(adminSettings.ads?.link || 'https://example.com/ads', '_blank');
+                }
+            } else {
+                // SDK লোড না হলে ফ্যালব্যাক
+                adsViewer.innerHTML = '<div class="ads-placeholder"><i class="fas fa-external-link-alt" style="font-size: 30px; color: #667eea;"></i><br>এডস নতুন ট্যাবে খোলা হয়েছে...</div>';
+                window.open(adminSettings.ads?.link || 'https://example.com/ads', '_blank');
+                showToast('এডস নতুন ট্যাবে খোলা হয়েছে। দেখার পর "দেখা শেষ" বাটনে ক্লিক করুন।', 'info');
+            }
+        }
+    }
+
+    // এডস দেখা শেষ
+    async function markAdAsWatched() {
+        if (!currentUser) {
+            showToast('আপনাকে লগইন করতে হবে', 'error');
+            return;
+        }
+        
+        // এডস ফিচার চালু আছে কিনা চেক
+        if (!adminSettings.ads?.enabled) {
+            showToast('এডস ফিচারটি বন্ধ আছে', 'error');
+            return;
+        }
+        
+        const referrals = currentUser.referrals || 0;
+        
+        // লিডার ব্যাজ চেক (১০ রেফার)
+        if (referrals < 10) {
+            const remaining = 10 - referrals;
+            showToast(`🔒 এডস দেখার জন্য লিডার ব্যাজ প্রয়োজন! আরও ${remaining} জন রেফার করুন`, 'error');
+            return;
+        }
+        
+        if (todayAdsWatched >= MAX_ADS) {
+            showToast('আজকের এডস লিমিট শেষ!', 'error');
+            return;
+        }
+        
+        if (!hasWatchedAd) {
+            showToast('প্রথমে "এডস দেখুন" বাটনে ক্লিক করুন!', 'error');
+            return;
+        }
+        
+        showLoading();
+        
+        try {
+            todayAdsWatched++;
+            const earning = ADS_RATE;
+            todayAdsEarned += earning;
+            
+            localStorage.setItem('todayAdsWatched', todayAdsWatched.toString());
+            localStorage.setItem('todayAdsEarned', todayAdsEarned.toString());
+            
+            const adsData = {
+                userId: currentUser.uid,
+                userName: currentUser.name,
+                watchedAt: Date.now(),
+                earning: earning,
+                date: new Date().toDateString()
+            };
+            
+            await database.ref('adsHistory/' + currentUser.uid).push(adsData);
+            
+            const newAdsEarn = (currentUser.adsEarn || 0) + earning;
+            await database.ref('users/' + currentUser.uid).update({
+                adsEarn: newAdsEarn
+            });
+            
+            currentUser.adsEarn = newAdsEarn;
+            hasWatchedAd = false;
+            
+            // এডস ভিউয়ার রিসেট
+            const adsViewer = document.getElementById('adsViewer');
+            if (adsViewer) {
+                adsViewer.innerHTML = '<div class="ads-placeholder"><i class="fas fa-play-circle" style="font-size: 30px; color: #667eea; margin-bottom: 10px; display: block;"></i>এডস দেখতে "এডস দেখুন" বাটনে ক্লিক করুন</div>';
+            }
+            
+            updateAdsUI();
+            updateUI();
+            
+            showToast(`✅ ${earning.toFixed(2)} টাকা ব্যালেন্সে যোগ হয়েছে! (মোট ${todayAdsEarned.toFixed(2)} টাকা)`, 'success');
+            
+        } catch (error) {
+            console.error('Ads earning error:', error);
+            showToast('সমস্যা হয়েছে', 'error');
+        } finally {
+            hideLoading();
+        }
+    }
+
+    // আপডেট নোটিফিকেশন দেখান
+    function showUpdateNotification() {
+        const notification = document.getElementById('updateNotification');
+        if (notification) {
+            notification.style.display = 'flex';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+    }
+
+    // মাইক্রোজব ডাটা লোড করার জন্য লিসেনার
+    function loadMicroJobsData() {
+        if (!database) return;
+        
+        const microJobsRef = database.ref('microjobs');
+        microJobsRef.on('value', (snapshot) => {
+            microJobs = [];
+            if (snapshot.exists()) {
+                snapshot.forEach(child => {
+                    microJobs.push({
+                        id: child.key,
+                        ...child.val()
+                    });
+                });
+            }
+            console.log("Microjobs loaded:", microJobs.length);
+            
+            if (currentUser) {
+                updateMicroJobsCount();
+                if (document.getElementById('microjob-page')?.classList.contains('active')) {
+                    displayMicroJobs();
+                }
+                if (document.getElementById('job-detail-page')?.classList.contains('active') && currentJobId) {
+                    const job = microJobs.find(j => j.id === currentJobId);
+                    if (job) {
+                        document.getElementById('jobDetailTitle').innerText = job.title;
+                        document.getElementById('jobDetailPrice').innerText = job.price;
+                        document.getElementById('jobDetailDescription').innerText = job.description;
+                    }
+                }
+            }
+        }, (error) => {
+            console.error("Error loading microjobs:", error);
+        });
+    }
+
+    // মাইক্রোজব কাউন্ট আপডেট
+    function updateMicroJobsCount() {
+        const availableJobs = microJobs.filter(job => job.status === 'active' && job.remaining > 0);
+        const countElement = document.getElementById('microjobCount');
+        if (countElement) {
+            countElement.innerText = `${availableJobs.length}টি`;
+        }
+    }
+
+    // মাইক্রোজব ডিসপ্লে
+    function displayMicroJobs() {
+        const container = document.getElementById('microjobs-list');
+        const noJobsMsg = document.getElementById('noMicroJobs');
+        
+        if (!container) return;
+        
+        const availableJobs = microJobs.filter(job => job.status === 'active' && job.remaining > 0);
+        
+        if (availableJobs.length === 0) {
+            if (noJobsMsg) noJobsMsg.style.display = 'block';
+            container.innerHTML = '';
+            return;
+        }
+        
+        if (noJobsMsg) noJobsMsg.style.display = 'none';
+        
+        let html = '';
+        availableJobs.forEach(job => {
+            const alreadyApplied = myJobSubmissions.some(sub => sub.jobId === job.id && sub.status !== 'rejected');
+            
+            html += `
+                <div class="microjob-card" onclick="showJobDetails('${job.id}')">
+                    <div class="microjob-header">
+                        <span class="microjob-title">${job.title}</span>
+                        <span class="microjob-price">৳ ${job.price}</span>
+                    </div>
+                    <div class="microjob-description">
+                        ${job.description.substring(0, 100)}${job.description.length > 100 ? '...' : ''}
+                    </div>
+                    <div class="microjob-meta">
+                        <span><i class="fas fa-tasks"></i> বাকি: ${job.remaining}/${job.total}</span>
+                        <span><i class="fas fa-clock"></i> ${new Date(job.createdAt).toLocaleDateString('bn-BD')}</span>
+                    </div>
+                    <div class="microjob-footer">
+                        <span class="microjob-status pending">উপলব্ধ</span>
+                        ${!alreadyApplied ? 
+                            '<button class="microjob-btn" onclick="event.stopPropagation(); showJobDetails(\'' + job.id + '\')">কাজ করুন</button>' : 
+                            '<button class="microjob-btn" disabled>ইতিমধ্যে নিয়েছেন</button>'}
+                    </div>
+                </div>
+            `;
+        });
+        
+        container.innerHTML = html;
+    }
+
+    // আমার মাইক্রোজব দেখান
+    function displayMyMicroJobs() {
+        const container = document.getElementById('my-microjobs-list');
+        if (!container) return;
+        
+        if (myJobSubmissions.length === 0) {
+            container.innerHTML = '<div class="info-box">আপনি এখনো কোনো কাজ করেননি</div>';
+            return;
+        }
+        
+        let html = '';
+        myJobSubmissions.reverse().forEach(sub => {
+            let statusClass = 'pending';
+            let statusText = 'পেন্ডিং';
+            
+            if (sub.status === 'approved') {
+                statusClass = 'completed';
+                statusText = 'অ্যাপ্রুভড';
+            } else if (sub.status === 'rejected') {
+                statusClass = 'rejected';
+                statusText = 'বাতিল';
+            }
+            
+            html += `
+                <div class="myjob-item ${statusClass}">
+                    <div class="myjob-header">
+                        <span class="myjob-title">${sub.jobTitle}</span>
+                        <span class="myjob-price">৳ ${sub.jobPrice}</span>
+                    </div>
+                    <div class="myjob-info">
+                        <i class="fas fa-calendar"></i> ${new Date(sub.submittedAt).toLocaleDateString('bn-BD')}
+                    </div>
+                    <div class="myjob-proof">
+                        <i class="fas fa-link"></i> প্রুফ: <a href="${sub.proof}" target="_blank">${sub.proof.substring(0, 30)}...</a>
+                    </div>
+                    <div>
+                        <span class="myjob-status ${statusClass}">${statusText}</span>
+                    </div>
+                </div>
+            `;
+        });
+        
+        container.innerHTML = html;
+    }
+
+    // ট্যাব সুইচ
+    function switchJobTab(tab) {
+        const tabs = document.querySelectorAll('#microjob-page .tab');
+        const contents = document.querySelectorAll('#microjob-page .tab-content');
+        
+        tabs.forEach(t => t.classList.remove('active'));
+        contents.forEach(c => c.classList.remove('active'));
+        
+        if (tab === 'available') {
+            tabs[0].classList.add('active');
+            document.getElementById('available-jobs').classList.add('active');
+            displayMicroJobs();
+        } else {
+            tabs[1].classList.add('active');
+            document.getElementById('myjobs-tab').classList.add('active');
+            displayMyMicroJobs();
+        }
+    }
+
+    // কাজের বিবরণ দেখান
+    function showJobDetails(jobId) {
+        const job = microJobs.find(j => j.id === jobId);
+        if (!job) return;
+        
+        currentJobId = jobId;
+        
+        document.getElementById('jobDetailTitle').innerText = job.title;
+        document.getElementById('jobDetailPrice').innerText = job.price;
+        document.getElementById('jobDetailDescription').innerText = job.description;
+        
+        hideAllPages();
+        document.getElementById('job-detail-page').classList.add('active');
+    }
+
+    // মাইক্রোজবে ফিরে যান
+    function goBackToMicroJobs() {
+        hideAllPages();
+        document.getElementById('microjob-page').classList.add('active');
+        switchJobTab('available');
+    }
+
+    // প্রুফ জমা দিন
+    async function submitJobProof() {
+        if (!currentUser || !currentJobId) {
+            showToast('কাজ নির্বাচন করুন প্রথমে', 'error');
+            return;
+        }
+        
+        const proof = document.getElementById('job-proof').value.trim();
+        if (!proof) {
+            showToast('প্রুফ লিঙ্ক দিন', 'error');
+            return;
+        }
+        
+        const job = microJobs.find(j => j.id === currentJobId);
+        if (!job) {
+            showToast('কাজটি আর নেই', 'error');
+            return;
+        }
+        
+        showLoading();
+        
+        try {
+            const submissionData = {
+                jobId: currentJobId,
+                jobTitle: job.title,
+                jobPrice: job.price,
+                userId: currentUser.uid,
+                userName: currentUser.name,
+                proof: proof,
+                status: 'pending',
+                submittedAt: Date.now()
+            };
+            
+            await database.ref('jobSubmissions').push(submissionData);
+            
+            showToast('✅ প্রুফ জমা হয়েছে! এডমিন যাচাই করবেন', 'success');
+            
+            document.getElementById('job-proof').value = '';
+            goBackToMicroJobs();
+            
+        } catch (error) {
+            console.error('Proof submission error:', error);
+            showToast('প্রুফ জমা দিতে সমস্যা হয়েছে', 'error');
+        } finally {
+            hideLoading();
+        }
+    }
+
+    // রেফারেল কোড জেনারেট করুন
+    function generateReferralCode(uid) {
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        let code = '';
+        for (let i = 0; i < 6; i++) {
+            code += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        return code + uid.substr(-4);
     }
 
     // মডালের বাইরে ক্লিক
@@ -7206,6 +7284,70 @@
             closeAddMoneyModal();
         }
     });
+
+    // Make functions available globally
+    window.handleSignIn = handleSignIn;
+    window.handleLogin = handleLogin;
+    window.showSigninPage = showSigninPage;
+    window.showLoginPage = showLoginPage;
+    window.switchPage = switchPage;
+    window.showGmailSellPage = showGmailSellPage;
+    window.showFacebookSellPage = showFacebookSellPage;
+    window.showTelegramSellPage = showTelegramSellPage;
+    window.showWhatsappSellPage = showWhatsappSellPage;
+    window.showSellHistory = showSellHistory;
+    window.submitSellTask = submitSellTask;
+    window.copyText = copyText;
+    window.showDailyBonusPage = showDailyBonusPage;
+    window.showBloodDonationPage = showBloodDonationPage;
+    window.completeTask = completeTask;
+    window.claimBonus = claimBonus;
+    window.showNoticeModal = showNoticeModal;
+    window.joinTelegram = joinTelegram;
+    window.closeWelcomeNotice = closeWelcomeNotice;
+    window.openBannerLink = openBannerLink;
+    window.showHelpLine = showHelpLine;
+    window.openHelpLink = openHelpLink;
+    window.editProfile = editProfile;
+    window.saveProfile = saveProfile;
+    window.logout = logout;
+    window.showAddMoneyModal = showAddMoneyModal;
+    window.closeAddMoneyModal = closeAddMoneyModal;
+    window.submitAddMoneyRequest = submitAddMoneyRequest;
+    window.showVoucherHistory = showVoucherHistory;
+    window.showWithdrawHistory = showWithdrawHistory;
+    window.checkWithdrawEligibility = checkWithdrawEligibility;
+    window.showWithdrawModal = showWithdrawModal;
+    window.closeWithdrawModal = closeWithdrawModal;
+    window.requestWithdraw = requestWithdraw;
+    window.showAdsPage = showAdsPage;
+    window.watchAd = watchAd;
+    window.markAdAsWatched = markAdAsWatched;
+    window.checkAdsRequirement = checkAdsRequirement;
+    window.showBloodDonationForm = showBloodDonationForm;
+    window.submitBloodDonation = submitBloodDonation;
+    window.showBloodDonationHistory = showBloodDonationHistory;
+    window.showMicroJobsPage = showMicroJobsPage;
+    window.showMyMicroJobs = showMyMicroJobs;
+    window.switchJobTab = switchJobTab;
+    window.showJobDetails = showJobDetails;
+    window.goBackToMicroJobs = goBackToMicroJobs;
+    window.submitJobProof = submitJobProof;
+    window.showJobPostsPage = showJobPostsPage;
+    window.showMyJobPosts = showMyJobPosts;
+    window.showCreateJobPost = showCreateJobPost;
+    window.goBackToJobPosts = goBackToJobPosts;
+    window.switchPostTab = switchPostTab;
+    window.createJobPost = createJobPost;
+    window.applyForJob = applyForJob;
+    window.showTopReferrerPage = showTopReferrerPage;
+    window.showRankBadgePage = showRankBadgePage;
+    window.showReferralInfo = showReferralInfo;
+    window.showRankInfo = showRankInfo;
+    window.copyReferralCode = copyReferralCode;
+    window.goBackToHome = goBackToHome;
+    window.closeModal = closeModal;
+    window.openResellingGroup = openResellingGroup;
 </script>
 </body>
 </html>
